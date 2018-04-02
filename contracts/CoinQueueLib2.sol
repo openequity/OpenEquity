@@ -1,11 +1,11 @@
 pragma solidity ^0.4.15;
 
 import "./OrderedStatisticTree.sol";
-library BookQueueLib2 {
+library CoinQueueLib2 {
   using OrderedStatisticTree for OrderedStatisticTree.Index;
 
 
-	struct BookQueue {
+	struct CoinQueue {
 
   		//bytes32 id;
   	  OrderedStatisticTree.Index customerValues;
@@ -19,15 +19,15 @@ library BookQueueLib2 {
 	}
 	function createQueue()
     internal
-    returns (BookQueue)
+    returns (CoinQueue)
   {
-    return BookQueue({
+    return CoinQueue({
       customerValues: OrderedStatisticTree.Index(0),numbercustomers:0,firstInLine:0x3
 
           });
   }
 
-	function insertcustomer(BookQueue storage queue,address customer,uint value) returns (uint){
+	function insertcustomer(CoinQueue storage queue,address customer,uint value) returns (uint){
     	if(queue.customerBalance[customer]==0){
     	  queue.numbercustomers+=1;
  		 }
@@ -43,7 +43,7 @@ library BookQueueLib2 {
         }
         return Rank;
 }
-  function customerWithdraw(BookQueue storage queue,address customer, uint value){
+  function customerWithdraw(CoinQueue storage queue,address customer, uint value){
        uint prevBalance=queue.customerBalance[customer];
        queue.customerBalance[customer]-=value;
        queue.customerValues.remove(prevBalance);
@@ -51,33 +51,33 @@ library BookQueueLib2 {
        //queue.positions[customer]=queue.customerValues.rank(value);
 
   }
-  function findcustomerPos(BookQueue storage queue,address customer) returns(uint){
+  function findcustomerPos(CoinQueue storage queue,address customer) returns(uint){
 	uint balance=queue.customerBalance[customer];
 	uint pos=queue.customerValues.rank(balance);
 	return pos;
 	}
-  function getFirstInLine(BookQueue storage queue) returns(address){
+  function getFirstInLine(CoinQueue storage queue) returns(address){
     return queue.firstInLine;
 
   }
-  function findbalance(BookQueue storage queue,address customer) returns(uint){
+  function findbalance(CoinQueue storage queue,address customer) returns(uint){
      return queue.customerBalance[customer];
 
   }
-  function findinserts(BookQueue storage queue) returns(uint){
+  function findinserts(CoinQueue storage queue) returns(uint){
 	return queue.customerValues.numInserts();
   }
-  function findvalueAtRank(BookQueue storage queue,uint value) returns(uint){
+  function findvalueAtRank(CoinQueue storage queue,uint value) returns(uint){
 	return queue.customerValues.select_at(value);
 	}
-    function findheight(BookQueue storage queue,uint value) returns(uint){
+    function findheight(CoinQueue storage queue,uint value) returns(uint){
 	return queue.customerValues.node_height(value);
   }
-  function findValueAtPercentile(BookQueue storage queue,uint value) returns(uint){
+  function findValueAtPercentile(CoinQueue storage queue,uint value) returns(uint){
   	return queue.customerValues.percentile(value);
 
   }
-  function findNodeCount(BookQueue storage queue, uint value) returns(uint){
+  function findNodeCount(CoinQueue storage queue, uint value) returns(uint){
     return queue.customerValues.node_count(value);
   }
 }

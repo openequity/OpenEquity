@@ -1,10 +1,10 @@
 // Specifically request an abstraction for MetaCoin
-var Book = artifacts.require('Book');
+var Coin = artifacts.require('Coin');
 
-contract('Book', function(accounts) {
+contract('Coin', function(accounts) {
   it('should purchase coin correctly', function() {
     let instance;
-    return Book.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
+    return Coin.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
       from: accounts[0],
     })
       .then(inst => {
@@ -25,7 +25,7 @@ contract('Book', function(accounts) {
 
   it('first in line should not change when someone buys same amount', function() {
     let instance;
-    return Book.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
+    return Coin.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
       from: accounts[0],
     })
       .then(inst => {
@@ -49,7 +49,7 @@ contract('Book', function(accounts) {
 
   it('first in line should not change when someone buys more', function() {
     let instance;
-    return Book.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
+    return Coin.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
       from: accounts[0],
     })
       .then(inst => {
@@ -79,7 +79,7 @@ contract('Book', function(accounts) {
 
   it('should set first eligible and continue to the next in line', function() {
     let instance;
-    return Book.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
+    return Coin.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
       from: accounts[0],
     })
       .then(inst => {
@@ -126,7 +126,7 @@ contract('Book', function(accounts) {
 
   it('should not set first eligible when goal is not met', function() {
     let instance;
-    return Book.new(accounts[0], 0, 100, 99, 15, 10000, 8, 'test', {
+    return Coin.new(accounts[0], 0, 100, 99, 15, 10000, 8, 'test', {
       from: accounts[0],
     })
       .then(inst => {
