@@ -1,13 +1,13 @@
 pragma solidity ^0.4.15;
 
-import "./BookQueueLib2.sol";
-import "./BookDistLib.sol";
+import "./CoinQueueLib2.sol";
+import "./CoinDistLib.sol";
 import "tokens/HumanStandardToken.sol";
 
-contract Book is HumanStandardToken {
-  using BookQueueLib2 for BookQueueLib2.BookQueue;
+contract Coin is HumanStandardToken {
+  using CoinQueueLib2 for CoinQueueLib2.CoinQueue;
   address authorAddress;
-  uint readershipStake;
+  uint customershipStake;
   uint balance;
   uint goal;
   uint toBeShipped;
@@ -16,13 +16,13 @@ contract Book is HumanStandardToken {
   uint startdate;
   uint enddate;
   uint gasSaved;
-  BookQueueLib2.BookQueue queue;
+  CoinQueueLib2.CoinQueue queue;
 
-  function Book
+  function Coin
     (
      address _authorAddress,
      //bytes metadata,
-     uint _readershipStake,
+     uint _customershipStake,
      uint _goal,
      uint _toBeShipped,
      //uint _userCount,
@@ -35,7 +35,7 @@ contract Book is HumanStandardToken {
      string _tokenSymbol)
     HumanStandardToken(_initialAmount, _tokenName, _decimalUnits, _tokenSymbol){
     authorAddress = _authorAddress;
-    readershipStake = _readershipStake;
+    customershipStake = _customershipStake;
     goal = _goal;
   //  userCount = _userCount;
     eligibleCount = _eligibleCount;
@@ -44,22 +44,22 @@ contract Book is HumanStandardToken {
     enddate=_enddate;
   }
 
-  enum ReaderStatus { Waiting, Eligible, Requested, Shipped, Confirmed }
+  enum customerStatus { Waiting, Eligible, Requested, Shipped, Confirmed }
 
-  struct Reader {
+  struct customer {
     uint id;
-    bytes readerUsername;      //Reader's username
-    ReaderStatus status;
+    bytes customerUsername;      //customer's username
+    customerStatus status;
   }
 
-  event BoughtCoin(address reader, uint amountPaid);
+  event BoughtCoin(address customer, uint amountPaid);
   event GoalMet(bool success);
-  event NewQualifyingReaders ();          //Some readers become eligible after goal is met
-  event BookRequested(address reader);    //Reader claims book
-  event LogBookShipped(address reader);   //Author sends shipping confirmation
-  event LogBookConfirmed(address reader);   //Author sends shipping confirmation
+  event NewQualifyingcustomers ();          //Some customers become eligible after goal is met
+  event CoinRequested(address customer);    //customer claims Coin
+  event LogCoinShipped(address customer);   //Author sends shipping confirmation
+  event LogCoinConfirmed(address customer);   //Author sends shipping confirmation
 
-  mapping (address => Reader) readers;
+  mapping (address => customer) customers;
   mapping(uint=>uint) weeklysales;
 //  mapping(address=>uint) balances;
   modifier goalMet {
@@ -88,17 +88,17 @@ contract Book is HumanStandardToken {
     payable
     returns(bool success){
 
-    // Reader buys coins the first time
+    // customer buys coins the first time
     if (balances[msg.sender] == 0) {
-      // Add reader
-      readers[msg.sender] = Reader({ id: userCount, readerUsername: 'Anonymous', status: ReaderStatus.Waiting });
+      // Add customer
+      customers[msg.sender] = customer({ id: userCount, customerUsername: 'Anonymous', status: customerStatus.Waiting });
       userCount++;
 
-      // Add the reader to the queue in the last position
+      // Add the customer to the queue in the last position
     }
 
     balances[msg.sender] += msg.value;
-    queue.insertReader( msg.sender,uint(balances[msg.sender]));
+    queue.insertcustomer( msg.sender,uint(balances[msg.sender]));
 
     if (goalReached()) {
       GoalMet(true);
@@ -136,7 +136,7 @@ contract Book is HumanStandardToken {
     require(eligibleCount <= toBeShipped);
     eligibleCount++;
     //address first = queue.getFirstInLine();
-    //readers[first].status = ReaderStatus.Eligible;
+    //customers[first].status = customerStatus.Eligible;
   //  queue.remove(first, int(balances[first]));
     return true;
   }
@@ -160,25 +160,25 @@ contract Book is HumanStandardToken {
     balances[msg.sender]=0;
     msg.sender.transfer((temp/balance));
   }
-  //Readers can claim hard copy after they become eligible
-  function requestDelivery (address readerAddress) returns (bool success) {
-    require(readers[readerAddress].status == ReaderStatus.Eligible);
-    readers[readerAddress].status = ReaderStatus.Requested;
-    BookRequested(msg.sender);
+  //customers can claim hard copy after they become eligible
+  function requestDelivery (address customerAddress) returns (bool success) {
+    require(customers[customerAddress].status == customerStatus.Eligible);
+    customers[customerAddress].status = customerStatus.Requested;
+    CoinRequested(msg.sender);
     return true;
   }
 
-  function markShipped (address reader) returns (bool success) {
-    require(readers[reader].status == ReaderStatus.Requested);
-    readers[reader].status = ReaderStatus.Shipped;
-    LogBookShipped(reader);
+  function markShipped (address customer) returns (bool success) {
+    require(customers[customer].status == customerStatus.Requested);
+    customers[customer].status = customerStatus.Shipped;
+    LogCoinShipped(customer);
     return true;
   }
 
-  function confirmDelivery (address reader) returns (bool success) {
-    require(readers[reader].status == ReaderStatus.Shipped);
-    readers[reader].status = ReaderStatus.Confirmed;
-    LogBookConfirmed(reader);
+  function confirmDelivery (address customer) returns (bool success) {
+    require(customers[customer].status == customerStatus.Shipped);
+    customers[customer].status = customerStatus.Confirmed;
+    LogCoinConfirmed(customer);
     return true;
   }
 

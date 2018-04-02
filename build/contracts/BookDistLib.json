@@ -1,0 +1,604 @@
+{
+  "contractName": "BookDistLib",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "NewQualifyingReaders",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "reader",
+          "type": "address"
+        }
+      ],
+      "name": "BookRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "reader",
+          "type": "address"
+        }
+      ],
+      "name": "LogBookShipped",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "readers",
+          "type": "uint256"
+        }
+      ],
+      "name": "prepShip",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "requestDelivery",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "reader",
+          "type": "address"
+        }
+      ],
+      "name": "markShipped",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b6101a68061001e6000396000f300606060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806330f7451e1461005c578063988e039014610066578063fc6dc17d1461007e575b600080fd5b6100646100ac565b005b61007c6004808035906020019091905050610111565b005b6100aa600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610114565b005b7f2230584ab8fade77c64e5c255605d55e33bda0fd1da9b3b6b76e9554d36fc35133604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1565b50565b7f23ebbcb002c7eea3cd701655c9274556b48dfd35cdce070c2fbc9101b5f7159081604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1505600a165627a7a723058208bd5995ebe9a67e6017a78300c2d66bcdb54aac9a82b389e7d62676df7388ef60029",
+  "deployedBytecode": "0x606060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806330f7451e1461005c578063988e039014610066578063fc6dc17d1461007e575b600080fd5b6100646100ac565b005b61007c6004808035906020019091905050610111565b005b6100aa600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610114565b005b7f2230584ab8fade77c64e5c255605d55e33bda0fd1da9b3b6b76e9554d36fc35133604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1565b50565b7f23ebbcb002c7eea3cd701655c9274556b48dfd35cdce070c2fbc9101b5f7159081604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1505600a165627a7a723058208bd5995ebe9a67e6017a78300c2d66bcdb54aac9a82b389e7d62676df7388ef60029",
+  "sourceMap": "52:862:1:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "52:862:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;590:209;;;;;;381:147;;;;;;;;;;;;;;;;;;802:109;;;;;;;;;;;;;;;;;;;;590:209;767:25;781:10;767:25;;;;;;;;;;;;;;;;;;;;;;590:209::o;381:147::-;;:::o;802:109::-;882:22;897:6;882:22;;;;;;;;;;;;;;;;;;;;;;802:109;:::o",
+  "source": "pragma solidity ^0.4.15;\n\n\nimport \"./BookPub.sol\";\n\nlibrary BookDistLib {\n\n  event NewQualifyingReaders ();          //Some readers become eligible after goal is met\n  event BookRequested(address reader);    //Reader claims book\n  event LogBookShipped(address reader);   //Author sends shipping confirmation\n\n  //Some readers become eligible to claim hard copy upon funding goal\n  function prepShip(uint readers){\n    //getFirstInLine(BookQueue storage queue)\n    //Book.readerEligibilityAndBalance.eligibleForBook = true;\n    }\n  //Readers can claim hard copy after they become eligible\n  function requestDelivery (){\n    //require(Book.readerEligibilityAndBalance.eligibleForBook = false = true);\n    //Book.readerEligibilityAndBalance.eligibleForBook = false;\n    BookRequested(msg.sender);\n    }\n  function markShipped (address reader){\n    //How should I alert the reader?\n    LogBookShipped(reader);\n    }\n\n}\n",
+  "sourcePath": "/home/jjj/Book_Pub_Dev/OE/OpenEquity/contracts/BookDistLib.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/home/jjj/Book_Pub_Dev/OE/OpenEquity/contracts/BookDistLib.sol",
+      "exportedSymbols": {
+        "BookDistLib": [
+          545
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".15"
+          ]
+        },
+        "id": 508,
+        "name": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 1002,
+          "absolutePath": "/home/jjj/Book_Pub_Dev/OE/OpenEquity/contracts/BookPub.sol",
+          "file": "./BookPub.sol",
+          "scope": 546,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 509,
+        "name": "ImportDirective",
+        "src": "27:23:1"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            545
+          ],
+          "name": "BookDistLib",
+          "scope": 546
+        },
+        "children": [
+          {
+            "attributes": {
+              "anonymous": false,
+              "name": "NewQualifyingReaders"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 510,
+                "name": "ParameterList",
+                "src": "104:2:1"
+              }
+            ],
+            "id": 511,
+            "name": "EventDefinition",
+            "src": "77:30:1"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "name": "BookRequested"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "reader",
+                      "scope": 515,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 512,
+                        "name": "ElementaryTypeName",
+                        "src": "188:7:1"
+                      }
+                    ],
+                    "id": 513,
+                    "name": "VariableDeclaration",
+                    "src": "188:14:1"
+                  }
+                ],
+                "id": 514,
+                "name": "ParameterList",
+                "src": "187:16:1"
+              }
+            ],
+            "id": 515,
+            "name": "EventDefinition",
+            "src": "168:36:1"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "name": "LogBookShipped"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "reader",
+                      "scope": 519,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 516,
+                        "name": "ElementaryTypeName",
+                        "src": "252:7:1"
+                      }
+                    ],
+                    "id": 517,
+                    "name": "VariableDeclaration",
+                    "src": "252:14:1"
+                  }
+                ],
+                "id": 518,
+                "name": "ParameterList",
+                "src": "251:16:1"
+              }
+            ],
+            "id": 519,
+            "name": "EventDefinition",
+            "src": "231:37:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "prepShip",
+              "payable": false,
+              "scope": 545,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "readers",
+                      "scope": 525,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 520,
+                        "name": "ElementaryTypeName",
+                        "src": "399:4:1"
+                      }
+                    ],
+                    "id": 521,
+                    "name": "VariableDeclaration",
+                    "src": "399:12:1"
+                  }
+                ],
+                "id": 522,
+                "name": "ParameterList",
+                "src": "398:14:1"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 523,
+                "name": "ParameterList",
+                "src": "412:0:1"
+              },
+              {
+                "attributes": {
+                  "statements": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 524,
+                "name": "Block",
+                "src": "412:116:1"
+              }
+            ],
+            "id": 525,
+            "name": "FunctionDefinition",
+            "src": "381:147:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "requestDelivery",
+              "payable": false,
+              "scope": 545,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 526,
+                "name": "ParameterList",
+                "src": "615:2:1"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 527,
+                "name": "ParameterList",
+                "src": "617:0:1"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 515,
+                              "type": "function (address)",
+                              "value": "BookRequested"
+                            },
+                            "id": 528,
+                            "name": "Identifier",
+                            "src": "767:13:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 5959,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 529,
+                                "name": "Identifier",
+                                "src": "781:3:1"
+                              }
+                            ],
+                            "id": 530,
+                            "name": "MemberAccess",
+                            "src": "781:10:1"
+                          }
+                        ],
+                        "id": 531,
+                        "name": "FunctionCall",
+                        "src": "767:25:1"
+                      }
+                    ],
+                    "id": 532,
+                    "name": "ExpressionStatement",
+                    "src": "767:25:1"
+                  }
+                ],
+                "id": 533,
+                "name": "Block",
+                "src": "617:182:1"
+              }
+            ],
+            "id": 534,
+            "name": "FunctionDefinition",
+            "src": "590:209:1"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "markShipped",
+              "payable": false,
+              "scope": 545,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "reader",
+                      "scope": 544,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 535,
+                        "name": "ElementaryTypeName",
+                        "src": "824:7:1"
+                      }
+                    ],
+                    "id": 536,
+                    "name": "VariableDeclaration",
+                    "src": "824:14:1"
+                  }
+                ],
+                "id": 537,
+                "name": "ParameterList",
+                "src": "823:16:1"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 538,
+                "name": "ParameterList",
+                "src": "839:0:1"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 519,
+                              "type": "function (address)",
+                              "value": "LogBookShipped"
+                            },
+                            "id": 539,
+                            "name": "Identifier",
+                            "src": "882:14:1"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 536,
+                              "type": "address",
+                              "value": "reader"
+                            },
+                            "id": 540,
+                            "name": "Identifier",
+                            "src": "897:6:1"
+                          }
+                        ],
+                        "id": 541,
+                        "name": "FunctionCall",
+                        "src": "882:22:1"
+                      }
+                    ],
+                    "id": 542,
+                    "name": "ExpressionStatement",
+                    "src": "882:22:1"
+                  }
+                ],
+                "id": 543,
+                "name": "Block",
+                "src": "839:72:1"
+              }
+            ],
+            "id": 544,
+            "name": "FunctionDefinition",
+            "src": "802:109:1"
+          }
+        ],
+        "id": 545,
+        "name": "ContractDefinition",
+        "src": "52:862:1"
+      }
+    ],
+    "id": 546,
+    "name": "SourceUnit",
+    "src": "0:915:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {
+    "4447": {
+      "events": {},
+      "links": {},
+      "address": "0xfb88de099e13c3ed21f80a7a1e49f8caecf10df6"
+    }
+  },
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-03-29T22:42:41.582Z"
+}

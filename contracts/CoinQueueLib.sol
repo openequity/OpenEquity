@@ -10,7 +10,7 @@ library BookQueueLib {
 
   struct BucketQueue {
     GroveLib.Index bucketIndex;
-    mapping (bytes32 => address) readerAddress;
+    mapping (bytes32 => address) customerAddress;
     int lastIndex;
     int firstIndex;
   }
@@ -33,8 +33,8 @@ library BookQueueLib {
           });
   }
 
-  function addToQueue(BookQueue storage queue, int value, address readerAddress) {
-    //Take readers address, store it in BookQueue placement selected by value
+  function addToQueue(BookQueue storage queue, int value, address customerAddress) {
+    //Take customers address, store it in BookQueue placement selected by value
     var bucketID = findBucket(queue, value);
 
     if (bucketID == 0x0) {
@@ -43,12 +43,12 @@ library BookQueueLib {
         queue.highestBucketID = bucketID;
       }
     }
-    addToBucket(queue, bucketID, readerAddress);
+    addToBucket(queue, bucketID, customerAddress);
   }
 
   // TODO: Don't duplicate
-  function addToQueueFirst(BookQueue storage queue, int value, address readerAddress) {
-    //Take readers address, store it in BookQueue placement selected by value
+  function addToQueueFirst(BookQueue storage queue, int value, address customerAddress) {
+    //Take customers address, store it in BookQueue placement selected by value
     var bucketID = findBucket(queue, value);
 
     if (bucketID == 0x0) {
@@ -57,10 +57,10 @@ library BookQueueLib {
         queue.highestBucketID = bucketID;
       }
     }
-    addToBucketFirst(queue, bucketID, readerAddress);
+    addToBucketFirst(queue, bucketID, customerAddress);
   }
 
-  function retrieve(address readerAddress){
+  function retrieve(address customerAddress){
   }
 
   function findBucket(BookQueue storage queue, int value)
@@ -70,12 +70,12 @@ library BookQueueLib {
     bucketID = queue.bucketIndex.query("==", value);
   }
 
-  function remove(BookQueue storage queue, address reader, int value)
+  function remove(BookQueue storage queue, address customer, int value)
     returns (bool success)
   {
     bytes32 bucketID = queue.bucketIndex.query('==', value);
     BucketQueue bucket = queue.buckets[bucketID];
-    bucket.bucketIndex.remove(bytes32(reader));
+    bucket.bucketIndex.remove(bytes32(customer));
     bytes32 nextInLine = bucket.bucketIndex.query('>=', bucket.firstIndex);
     if (nextInLine == bytes32(0)) {
       queue.bucketIndex.remove(bucketID);
@@ -97,27 +97,27 @@ library BookQueueLib {
     return bucketID;
   }
 
-  function addToBucket(BookQueue storage queue, bytes32 bucketID, address readerAddress)
+  function addToBucket(BookQueue storage queue, bytes32 bucketID, address customerAddress)
     internal
   {
     BucketQueue bucket = queue.buckets[bucketID];
     bucket.lastIndex += 1;
-    bucket.bucketIndex.insert(bytes32(readerAddress), bucket.lastIndex);
-    bucket.readerAddress[bytes32(readerAddress)] = readerAddress;
+    bucket.bucketIndex.insert(bytes32(customerAddress), bucket.lastIndex);
+    bucket.customerAddress[bytes32(customerAddress)] = customerAddress;
   }
 
-  function addToBucketFirst(BookQueue storage queue, bytes32 bucketID, address readerAddress)
+  function addToBucketFirst(BookQueue storage queue, bytes32 bucketID, address customerAddress)
     internal
   {
     var bucket = queue.buckets[bucketID];
     bucket.firstIndex -= 1;
-    bucket.bucketIndex.insert(bytes32(readerAddress), bucket.firstIndex);
-    bucket.readerAddress[bytes32(readerAddress)] = readerAddress;
+    bucket.bucketIndex.insert(bytes32(customerAddress), bucket.firstIndex);
+    bucket.customerAddress[bytes32(customerAddress)] = customerAddress;
   }
 
   function getFirstInLine(BookQueue storage queue)
     constant
-    returns(address readerAddress)
+    returns(address customerAddress)
   {
     var bucketID = queue.highestBucketID;
     var bucket = queue.buckets[bucketID];
@@ -144,7 +144,7 @@ library BookQueueLib {
 
   function getLinePosition(BookQueue storage queue, uint index)
     constant
-    returns(address readerAddress){
+    returns(address customerAddress){
     /*var bucketID = queue.highestBucketID;
       var bucket = queue.buckets[bucketID];
       return bucket[bucket.length - 1];*/

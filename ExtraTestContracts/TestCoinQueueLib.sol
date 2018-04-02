@@ -1,15 +1,15 @@
 pragma solidity ^0.4.15;
 
 import "truffle/Assert.sol";
-import "../contracts/BookQueueLib.sol";
+import "../contracts/CoinQueueLib.sol";
 
-contract TestBookQueueLib{
-  using BookQueueLib for BookQueueLib.BookQueue;
+contract TestCoinQueueLib{
+  using CoinQueueLib for CoinQueueLib.CoinQueue;
 
-  BookQueueLib.BookQueue queue;
+  CoinQueueLib.CoinQueue queue;
 
   function beforeAll(){
-    //queue = BookQueueLib.createNew();
+    //queue = CoinQueueLib.createNew();
   }
 
   function test0_AddFirstReader(){
