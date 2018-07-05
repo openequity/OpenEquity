@@ -26,7 +26,7 @@ contract TestCoinQueueLib2{
    	 queue.insertcustomer( customerAddress,value);
 	   queue.insertcustomer( customerAddress1,value1);
 	   queue.insertcustomer( customerAddress2,value2);
-	//queue.insertcustomer( customerAddress3,value3);
+     queue.insertcustomer( customerAddress3,value3);
 	   Assert.equal(queue.findcustomerPos(customerAddress), queue.findcustomerPos(customerAddress1), "Rank failiing");
   }
    function test0_insertcustomer2(){

@@ -16,6 +16,7 @@ contract Coin is HumanStandardToken {
   uint startdate;
   uint enddate;
   uint gasSaved;
+  address StatisticsTree;
   CoinQueueLib2.CoinQueue queue;
 
   function Coin
@@ -82,7 +83,9 @@ contract Coin is HumanStandardToken {
   {
     return ((balance<goal)&&(now>enddate));
   }
-
+  function setTreeAddress(address a){
+    StatisticsTree=a;
+  }
   function buyCoin()
     public
     payable
@@ -98,7 +101,8 @@ contract Coin is HumanStandardToken {
     }
 
     balances[msg.sender] += msg.value;
-    queue.insertcustomer( msg.sender,uint(balances[msg.sender]));
+
+    queue.insertcustomer( msg.sender,uint(balances[msg.sender]),StatisticsTree);
 
     if (goalReached()) {
       GoalMet(true);
@@ -111,11 +115,8 @@ contract Coin is HumanStandardToken {
     return true;
   }
 
-  function getFirstInLine()
 
-  {
 
-  }
   function weekSaleSum(uint value){
   //  uint currentday=((now-start)/86400)%7;
     uint currentweek=((now-startdate)/86400)/7;

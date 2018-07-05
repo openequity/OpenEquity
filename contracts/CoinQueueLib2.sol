@@ -1,18 +1,15 @@
-pragma solidity ^0.4.15;
-
-import "./OrderedStatisticTree.sol";
 library CoinQueueLib2 {
-  using OrderedStatisticTree for OrderedStatisticTree.Index;
+  //using OrderedStatisticTree for OrderedStatisticTree.Index;
 
-
-	struct CoinQueue {
+  struct CoinQueue {
 
   		//bytes32 id;
-  	  OrderedStatisticTree.Index customerValues;
+
    	  mapping(address=>uint) insertOrder;
 	    mapping(address=>uint) customerBalance;
 	    mapping(uint=>address) balanceTocustomer;
   //  mapping(address=>uint) positions;
+      uint greatestCustomerPurchase;
       address firstInLine;
 	    uint numbercustomers;
 
@@ -22,62 +19,40 @@ library CoinQueueLib2 {
     returns (CoinQueue)
   {
     return CoinQueue({
-      customerValues: OrderedStatisticTree.Index(0),numbercustomers:0,firstInLine:0x3
+      numbercustomers:0,firstInLine:0x3,greatestCustomerPurchase:0
 
           });
   }
 
-	function insertcustomer(CoinQueue storage queue,address customer,uint value) returns (uint){
+
+
+
+	function insertcustomer(CoinQueue storage queue,address customer,uint value,address StatisticsTree) returns (bool){
     	if(queue.customerBalance[customer]==0){
     	  queue.numbercustomers+=1;
  		 }
 	    uint prevBalance=queue.customerBalance[customer];
 	    queue.customerBalance[customer]+=value;
-	  // queue.customerValues.remove(prevBalance);
+	  // customerValues.remove(prevBalance);
       uint temp=queue.customerBalance[customer];
-	    queue.customerValues.insert(temp);
-	  // queue.positions[customer]=queue.customerValues.rank(value);
-        uint Rank=queue.customerValues.rank(temp);
-        if(Rank==queue.numbercustomers){
-    	    queue.firstInLine=customer;
-        }
-        return Rank;
+	    CallInsert(StatisticsTree,temp);
+	  // positions[customer]=customerValues.rank(value);
+
+        return true;
 }
-  function customerWithdraw(CoinQueue storage queue,address customer, uint value){
+  function customerWithdraw(CoinQueue storage queue,address customer, uint value,address StatisticsTree) returns(bool){
        uint prevBalance=queue.customerBalance[customer];
        queue.customerBalance[customer]-=value;
-       queue.customerValues.remove(prevBalance);
-       queue.customerValues.insert(queue.customerBalance[customer]);
-       //queue.positions[customer]=queue.customerValues.rank(value);
-
-  }
-  function findcustomerPos(CoinQueue storage queue,address customer) returns(uint){
-	uint balance=queue.customerBalance[customer];
-	uint pos=queue.customerValues.rank(balance);
-	return pos;
-	}
-  function getFirstInLine(CoinQueue storage queue) returns(address){
-    return queue.firstInLine;
-
-  }
-  function findbalance(CoinQueue storage queue,address customer) returns(uint){
-     return queue.customerBalance[customer];
-
-  }
-  function findinserts(CoinQueue storage queue) returns(uint){
-	return queue.customerValues.numInserts();
-  }
-  function findvalueAtRank(CoinQueue storage queue,uint value) returns(uint){
-	return queue.customerValues.select_at(value);
-	}
-    function findheight(CoinQueue storage queue,uint value) returns(uint){
-	return queue.customerValues.node_height(value);
-  }
-  function findValueAtPercentile(CoinQueue storage queue,uint value) returns(uint){
-  	return queue.customerValues.percentile(value);
-
-  }
-  function findNodeCount(CoinQueue storage queue, uint value) returns(uint){
-    return queue.customerValues.node_count(value);
-  }
+       uint temp=queue.customerBalance[customer];
+       CallRemove(StatisticsTree,prevBalance);
+       CallInsert(StatisticsTree,temp);
+       //positions[customer]=customerValues.rank(value);
+       return true;
+		 }
+		 function CallInsert(address c,uint value){
+			 if(!c.call(bytes4(keccak256("insert(uint256)")),value )) revert();
+		 }
+		 function CallRemove(address c,uint value){
+	 		if(!c.call(bytes4(keccak256("remove(uint256)")),value )) revert();
+	 	}
 }

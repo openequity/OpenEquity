@@ -25,9 +25,10 @@ import "./Coin.sol";
 
 contract CoinPub is Stoppable {
     uint CoinID;            //ID applied to Coin upon pub, incrementing after each new Coin
-
-    function CoinPub(){
+    address TreeDeploy;
+    function CoinPub(address T){
         CoinID = 0;
+        TreeDeploy=T;
       }
     modifier isOwner() {
       require(msg.sender == owner);
@@ -139,6 +140,8 @@ contract CoinPub is Stoppable {
 
      Coin newCoin = new Coin(msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
                              temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol);
+     address CoinAddress=newCoin.this;
+     TreeDeploy.call(sha3(bytes4("deployTree(address)",CoinAddress)));                         
    }
 
    function structRet(uint n)  public returns(uint){
@@ -156,9 +159,9 @@ contract CoinPub is Stoppable {
      return b.tokenSymbol;
 
    }
-   function getCoinStruct(uint n) public  returns (CoinStruct) {
-     return Coins[n];
-   }
+  // function getCoinStruct(uint n) public  returns (CoinStruct) {
+    // return Coins[n];
+   //}
    function getOtherparams(uint n) returns(uint,uint,uint,uint){
      CoinStruct memory b= Coins[n];
      return(b.goal,b.startdate,b.enddate,b.eligibleCount);
