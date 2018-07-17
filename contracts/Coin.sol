@@ -3,9 +3,10 @@ pragma solidity ^0.4.15;
 import "./CoinQueueLib2.sol";
 import "./CoinDistLib.sol";
 import "tokens/HumanStandardToken.sol";
-
+import "./Math.sol";
 contract Coin is HumanStandardToken {
   using CoinQueueLib2 for CoinQueueLib2.CoinQueue;
+  using Math for *;
   address authorAddress;
   uint customershipStake;
   uint balance;
@@ -17,6 +18,8 @@ contract Coin is HumanStandardToken {
   uint enddate;
   uint gasSaved;
   address StatisticsTree;
+  uint weightCoefficient;
+  uint weightCoefficient2;
   CoinQueueLib2.CoinQueue queue;
 
   function Coin
@@ -33,7 +36,10 @@ contract Coin is HumanStandardToken {
      uint8 _decimalUnits,
      uint _startdate,
      uint _enddate,
-     string _tokenSymbol)
+     string _tokenSymbol,
+     uint _weightCoefficient,
+     uint _weightCoefficient2
+     )
     HumanStandardToken(_initialAmount, _tokenName, _decimalUnits, _tokenSymbol){
     authorAddress = _authorAddress;
     customershipStake = _customershipStake;
@@ -41,8 +47,10 @@ contract Coin is HumanStandardToken {
   //  userCount = _userCount;
     eligibleCount = _eligibleCount;
     toBeShipped = _toBeShipped;
-    startdate=_startdate;
-    enddate=_enddate;
+    startdate=startdate;
+    enddate=startdate + _enddate *1 days;
+    weightCoefficient=_weightCoefficient;
+    weightCoefficient2=_weightCoefficient2;
   }
 
   enum customerStatus { Waiting, Eligible, Requested, Shipped, Confirmed }
@@ -99,10 +107,12 @@ contract Coin is HumanStandardToken {
 
       // Add the customer to the queue in the last position
     }
+    uint Time=((now-startdate)*10000)/(enddate-startdate);
+    int weight=-1*( 0x10000000000000000*((int(weightCoefficient)*int(Time))+int(weightCoefficient2)*int(balance/goal) ));
 
     balances[msg.sender] += msg.value;
-
-    queue.insertcustomer( msg.sender,uint(balances[msg.sender]),StatisticsTree);
+    uint points=((weight.exp()*(balances[msg.sender]))/0x10000000000000000);
+    queue.insertcustomer( msg.sender,points,StatisticsTree);
 
     if (goalReached()) {
       GoalMet(true);

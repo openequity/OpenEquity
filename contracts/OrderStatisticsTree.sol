@@ -5,7 +5,7 @@ contract OrderStatisticTree {
 
     address owner;
     uint numberofInserts;
-    
+
     constructor(address _owner) {
     owner=_owner;
     numberofInserts=0;
@@ -243,6 +243,7 @@ contract OrderStatisticTree {
         else
             remove_helper(value);
     }
+
     function rank(uint value) constant returns (uint smaller){
        uint temp=0;
         if(value!=0){
@@ -260,7 +261,7 @@ contract OrderStatisticTree {
                 }
                 if (cur==value)
                     break;
-                cur=cur_node.children[cur<value];
+                //cur=cur_node.children[cur<value];
                 if(cur<value){
                 cur=cur_node.children[true];
                 cur_node=nodes[cur];
@@ -273,6 +274,7 @@ contract OrderStatisticTree {
             }
         }
     }
+
     function select_at(uint pos) constant returns (uint value){
         uint zeroes=nodes[0].dupes;
         if (pos<zeroes)
@@ -306,14 +308,17 @@ contract OrderStatisticTree {
             }
         }
     }
+
     function duplicates(uint value) constant returns (uint n){
         return nodes[value].dupes+1;
     }
+
     function count() constant returns (uint count){
         Node root=nodes[0];
         Node child=nodes[root.children[true]];
         return root.dupes+child.count;
     }
+
     function in_top_n(uint value,uint n) constant returns (bool truth){
         uint pos=rank(value);
         uint num=count();

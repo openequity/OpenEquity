@@ -1,18 +1,18 @@
 pragma solidity ^0.4.15;
 
-import "./OrderStatisticTree.sol"
+import "./OrderStatisticsTree.sol";
 
 
 
-contract TreeDeployer(){
+contract TreeDeployer{
 
 mapping(address=>address) deployedAddresses;
 
 function deployTree(address Owner){
 OrderStatisticTree Tree= new OrderStatisticTree(Owner);
-deployedAddresses[msg.sender]=Tree.this;
-}
 
+deployedAddresses[msg.sender]=address(Tree);
+}
 function getTreeLocation(address creator) returns(address){
   return deployedAddresses[creator];
 }

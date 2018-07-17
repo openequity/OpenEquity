@@ -55,4 +55,5 @@ library CoinQueueLib2 {
 		 function CallRemove(address c,uint value){
 	 		if(!c.call(bytes4(keccak256("remove(uint256)")),value )) revert();
 	 	}
+  
 }

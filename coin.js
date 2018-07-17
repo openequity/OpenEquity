@@ -4,7 +4,8 @@ var Coin = artifacts.require('Coin');
 contract('Coin', function(accounts) {
   it('should purchase coin correctly', function() {
     let instance;
-    return Coin.new(accounts[0], 0, 100, 100, 15, 10000, 8, 'test', {
+    '0x627306090abaB3A6e1400e9345bC60c78a8BEf57',100,100,100,100,100,"TestCoin"
+    return Coin.new(accounts[0], 0, 100, 100, 15, 10000,  'test',10000,1,50,"TB" {
       from: accounts[0],
     })
       .then(inst => {
