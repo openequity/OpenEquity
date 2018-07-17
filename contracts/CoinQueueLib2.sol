@@ -13,6 +13,7 @@ library CoinQueueLib2 {
 	    mapping(address=>uint) customerBalance;
 	    mapping(uint=>address) balanceTocustomer;
   //  mapping(address=>uint) positions;
+      uint greatestCustomerPurchase;
       address firstInLine;
 	    uint numbercustomers;
 
@@ -22,26 +23,28 @@ library CoinQueueLib2 {
     returns (CoinQueue)
   {
     return CoinQueue({
-      customerValues: OrderedStatisticTree.Index(0),numbercustomers:0,firstInLine:0x3
+      customerValues: OrderedStatisticTree.Index(0),numbercustomers:0,firstInLine:0x3,greatestCustomerPurchase:0
 
           });
   }
 
-	function insertcustomer(CoinQueue storage queue,address customer,uint value) returns (uint){
+	function insertcustomer(CoinQueue storage queue,address customer,uint value) returns (bool){
     	if(queue.customerBalance[customer]==0){
     	  queue.numbercustomers+=1;
  		 }
+     if(queue.customerBalance[customer]+value>  queue.greatestCustomerPurchase){
+       queue.greatestCustomerPurchase=queue.customerBalance[customer]+value;
+       queue.firstInLine=customer;
+     }
 	    uint prevBalance=queue.customerBalance[customer];
 	    queue.customerBalance[customer]+=value;
-	  // queue.customerValues.remove(prevBalance);
+	    queue.customerValues.remove(prevBalance);
       uint temp=queue.customerBalance[customer];
 	    queue.customerValues.insert(temp);
 	  // queue.positions[customer]=queue.customerValues.rank(value);
-        uint Rank=queue.customerValues.rank(temp);
-        if(Rank==queue.numbercustomers){
-    	    queue.firstInLine=customer;
-        }
-        return Rank;
+        //uint Rank=queue.customerValues.rank(temp);
+
+        return true;
 }
   function customerWithdraw(CoinQueue storage queue,address customer, uint value){
        uint prevBalance=queue.customerBalance[customer];

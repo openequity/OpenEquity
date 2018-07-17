@@ -23,11 +23,19 @@ contract TestCoinQueueLib2{
 	   uint value2=9;
      uint value3=12;
 	   uint order=1;
+     uint temp=4;
    	 queue.insertcustomer( customerAddress,value);
 	   queue.insertcustomer( customerAddress1,value1);
 	   queue.insertcustomer( customerAddress2,value2);
-	//queue.insertcustomer( customerAddress3,value3);
-	   Assert.equal(queue.findcustomerPos(customerAddress), queue.findcustomerPos(customerAddress1), "Rank failiing");
+	  queue.insertcustomer( customerAddress3,value3);
+    Assert.equal(queue.findcustomerPos(customerAddress),0,"Rank failiing");
+   Assert.equal(queue.findcustomerPos(customerAddress1),1,"Rank failiing");
+   Assert.equal(queue.findcustomerPos(customerAddress2),2,"Rank failiing");
+	   Assert.equal( queue.findvalueAtRank(1),value1, "Rank failiing");
+     Assert.equal( queue.findvalueAtRank(2),value2, "Rank failiing");
+      Assert.equal( queue.findvalueAtRank(3),value3, "Rank failiing");
+
+
   }
    function test0_insertcustomer2(){
 	    address customerAddress = 0x3;
@@ -40,7 +48,7 @@ contract TestCoinQueueLib2{
 	    address customerAddress2= 0x5;
       uint value2=9;
 	    queue1.insertcustomer( customerAddress2,value2);
-	    Assert.equal(queue.findvalueAtRank(2), 1, "customer not added");
+	    Assert.equal(queue.findvalueAtRank(2), 9, "customer not added");
   }
   function test0_insertcustomer3(){
 	  address customerAddress = 0x3;
@@ -56,6 +64,7 @@ contract TestCoinQueueLib2{
 	  queue2.insertcustomer( customerAddress2,value1);
 	  queue2.insertcustomer( customerAddress1,value2);
     queue2.insertcustomer( customerAddress,value3);
+    queue2.findcustomerPos( customerAddress);
 	  uint x=queue2.findNodeCount(value);
 	//uint y=queue2.findNodeCount(value1);
 	  Assert.equal(x, 1, "Rank failiing");

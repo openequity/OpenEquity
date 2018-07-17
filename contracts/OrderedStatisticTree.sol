@@ -239,10 +239,12 @@ library OrderedStatisticTree {
     }
     function rank(Index storage index,uint value) constant returns (uint smaller){
         if(value!=0){
+            uint temp=0;
             smaller=index.nodes[0].dupes;
             uint cur=index.nodes[0].children[true];
             Node cur_node=index.nodes[cur];
-            while(true){
+            while(temp<10){
+              temp+=1;
                 if (cur<=value){
                     if(cur<value)
                         smaller+=1+cur_node.dupes;
@@ -252,7 +254,16 @@ library OrderedStatisticTree {
                 }
                 if (cur==value)
                     break;
-                cur=cur_node.children[cur<value];
+                //cur=cur_node.children[cur<value];
+                if(cur<value){
+                cur=cur_node.children[true];
+                cur_node=index.nodes[cur];
+
+                }
+                 if(cur>value){
+                cur=cur_node.children[false];
+                 cur_node=index.nodes[cur];
+                }
             }
         }
     }

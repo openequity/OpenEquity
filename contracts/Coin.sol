@@ -104,7 +104,7 @@ contract Coin is HumanStandardToken {
       GoalMet(true);
     }
 
-  //  queue.addToQueue(int(msg.value), msg.sender);
+  
 
     balance += msg.value;
     weekSaleSum( msg.value);

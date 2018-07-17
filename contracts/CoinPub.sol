@@ -156,9 +156,9 @@ contract CoinPub is Stoppable {
      return b.tokenSymbol;
 
    }
-   function getCoinStruct(uint n) public  returns (CoinStruct) {
-     return Coins[n];
-   }
+   //function getCoinStruct(uint n) public  returns (CoinStruct) {
+    // return Coins[n];
+  // }
    function getOtherparams(uint n) returns(uint,uint,uint,uint){
      CoinStruct memory b= Coins[n];
      return(b.goal,b.startdate,b.enddate,b.eligibleCount);
