@@ -34,6 +34,7 @@ library CoinQueueLib2 {
 	    uint prevBalance=queue.customerBalance[customer];
 	    queue.customerBalance[customer]+=value;
 	  // customerValues.remove(prevBalance);
+      CallRemove(StatisticsTree,prevBalance);
       uint temp=queue.customerBalance[customer];
 	    CallInsert(StatisticsTree,temp);
 	  // positions[customer]=customerValues.rank(value);
@@ -55,5 +56,5 @@ library CoinQueueLib2 {
 		 function CallRemove(address c,uint value){
 	 		if(!c.call(bytes4(keccak256("remove(uint256)")),value )) revert();
 	 	}
-  
+
 }

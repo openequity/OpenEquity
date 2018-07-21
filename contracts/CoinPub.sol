@@ -45,6 +45,7 @@ contract CoinPub is Stoppable {
     mapping(address => customer) customers;
     mapping(address => Author) authors;
     mapping(uint => CoinStruct) Coins;
+    mapping(uint => address) CoinInstances;
     //mapping(uint => uint) partnerShares;
     mapping(uint=>mapping(uint=>uint)) partnerShares;
     //customer details [customersUsername, CoinIDs purchased array]
@@ -126,8 +127,8 @@ contract CoinPub is Stoppable {
               numPartners:0,
               weightCoefficient:1,
               weightCoefficient2:1
-                            });
-                          }
+            });
+      }
   function modifyCoinStruct(uint _CoinID,uint _goal,uint _startdate,uint _enddate,uint _eligibleCount,uint _weight, uint _weight2)
 	 isAuthor()   {
 	              CoinStruct storage temp=Coins[_CoinID];
@@ -148,7 +149,8 @@ contract CoinPub is Stoppable {
     Coin newCoin = new Coin(msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
                              temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2);
       address T=address(newCoin);
-     TreeDeploy.call(bytes4(sha3(("deployTree(address)"))),T);
+      CoinInstances[temp.CoinID]=T;
+     TreeDeploy.call(bytes4(sha3(("deployTree(address,uint256)"))),T,temp.eligibleCount);
      return newCoin;
    }
 

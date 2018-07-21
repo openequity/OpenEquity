@@ -5,12 +5,22 @@ contract OrderStatisticTree {
 
     address owner;
     uint numberofInserts;
-
-    constructor(address _owner) {
+    uint EligibleCount;
+    bool GoalReached;
+    constructor(address _owner, uint _eligibleCount) {
     owner=_owner;
     numberofInserts=0;
+    EligibleCount=_eligibleCount;
+    GoalReached=false;
     }
-
+    function SetCoinOwnerEligible(uint value) isOwner(){
+      require(GoalReached==true);
+      require(rank(value)<=EligibleCount);
+      if(!owner.call(bytes4(keccak256("setEligible(uint256)")),value )) revert();
+    }
+    function SetGoalReached() isOwner(){
+      GoalReached=true;
+    }
     modifier isOwner(){
       require(msg.sender==owner);
       _;

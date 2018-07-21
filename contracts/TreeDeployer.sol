@@ -8,8 +8,8 @@ contract TreeDeployer{
 
 mapping(address=>address) deployedAddresses;
 
-function deployTree(address Owner){
-OrderStatisticTree Tree= new OrderStatisticTree(Owner);
+function deployTree(address Owner,uint eligible){
+OrderStatisticTree Tree= new OrderStatisticTree(Owner,eligible);
 
 deployedAddresses[msg.sender]=address(Tree);
 }

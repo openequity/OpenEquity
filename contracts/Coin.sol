@@ -57,8 +57,10 @@ contract Coin is HumanStandardToken {
 
   struct customer {
     uint id;
+    uint points;
     bytes customerUsername;      //customer's username
     customerStatus status;
+
   }
 
   event BoughtCoin(address customer, uint amountPaid);
@@ -67,7 +69,7 @@ contract Coin is HumanStandardToken {
   event CoinRequested(address customer);    //customer claims Coin
   event LogCoinShipped(address customer);   //Author sends shipping confirmation
   event LogCoinConfirmed(address customer);   //Author sends shipping confirmation
-
+  mapping(uint=>bool) validPoints;
   mapping (address => customer) customers;
   mapping(uint=>uint) weeklysales;
 //  mapping(address=>uint) balances;
@@ -91,7 +93,7 @@ contract Coin is HumanStandardToken {
   {
     return ((balance<goal)&&(now>enddate));
   }
-  function setTreeAddress(address a){
+  function setTreeAddress(address a) {
     StatisticsTree=a;
   }
   function buyCoin()
@@ -102,7 +104,7 @@ contract Coin is HumanStandardToken {
     // customer buys coins the first time
     if (balances[msg.sender] == 0) {
       // Add customer
-      customers[msg.sender] = customer({ id: userCount, customerUsername: 'Anonymous', status: customerStatus.Waiting });
+      customers[msg.sender] = customer({ id: userCount, customerUsername: 'Anonymous', status: customerStatus.Waiting,points:0 });
       userCount++;
 
       // Add the customer to the queue in the last position
@@ -111,10 +113,13 @@ contract Coin is HumanStandardToken {
     int weight=-1*( 0x10000000000000000*((int(weightCoefficient)*int(Time))+int(weightCoefficient2)*int(balance/goal) ));
 
     balances[msg.sender] += msg.value;
-    uint points=((weight.exp()*(balances[msg.sender]))/0x10000000000000000);
-    queue.insertcustomer( msg.sender,points,StatisticsTree);
-
+    uint _points=((weight.exp()*(balances[msg.sender]))/0x10000000000000000);
+    customers[msg.sender].points+=_points;
+    if(balance<goal){
+    queue.insertcustomer( msg.sender,_points,StatisticsTree);
+    }
     if (goalReached()) {
+      if(!StatisticsTree.call(bytes4(keccak256("SetGoalReached()")))) revert();
       GoalMet(true);
     }
 
@@ -151,24 +156,31 @@ contract Coin is HumanStandardToken {
   //  queue.remove(first, int(balances[first]));
     return true;
   }
+  function setEligible(uint value) goalMet{
+  require(msg.sender==StatisticsTree);
 
+  validPoints[value]=true;
+  }
   //((Author)) withdraws the capital they earned through coin sales
   function withdrawCapital()
     goalMet
     /*isAuthor()*/{
     authorAddress.transfer(balance);
   }
-  function withdrawInvestment(){
+  /*function withdrawInvestment(){
     uint temp=balances[msg.sender];
     balances[msg.sender]=0;
+    queue.customerWithdraw(msg.sender,temp,StatisticsTree);
     msg.sender.transfer(temp);
 
   }
+  */
   function claimCoins()
      goalMet
   {
     uint temp=balances[msg.sender];
     balances[msg.sender]=0;
+    if(!queue.customerWithdraw(msg.sender,temp,StatisticsTree)) revert();
     msg.sender.transfer((temp/balance));
   }
   //customers can claim hard copy after they become eligible

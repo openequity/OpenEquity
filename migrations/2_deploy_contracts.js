@@ -38,6 +38,6 @@ module.exports = function(deployer) {
   let H=await Coin.deployed();
   H=H.address
   await deployer.deploy(CoinDistLib);
-  await deployer.deploy(OrderStatisticTree,H);
+  await deployer.deploy(OrderStatisticTree,H,100);
 })
 };
