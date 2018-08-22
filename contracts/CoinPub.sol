@@ -16,21 +16,25 @@
 8) Coin holders are legally entitled to licesnsing revenue if a deal is made with a publisher, movie studio, amusementpark, etc.
 */
 
-/*MAY NOT COMPILE*/
+
 
 pragma solidity ^0.4.15;
 
-import "./Stoppable.sol";
-import "./Coin.sol";
-import "./Math.sol";
+//import "./Stoppable.sol";
+//import "./Coin.sol";
+//import "./Math.sol";
 
-contract CoinPub is Stoppable {
-  using Math for *;
+contract CoinPub  {
+    //using Math for *;
     uint CoinID;            //ID applied to Coin upon pub, incrementing after each new Coin
     address TreeDeploy;
-    function CoinPub(address T){
+    address CoinDeploy;
+    address owner;
+    function CoinPub(address T,address C){
         CoinID = 0;
+        CoinDeploy=C;
         TreeDeploy=T;
+        owner=msg.sender;
       }
     modifier isOwner() {
       require(msg.sender == owner);
@@ -45,8 +49,8 @@ contract CoinPub is Stoppable {
     mapping(address => customer) customers;
     mapping(address => Author) authors;
     mapping(uint => CoinStruct) Coins;
-    mapping(uint => address) CoinInstances;
-    //mapping(uint => uint) partnerShares;
+    //mapping(uint => address) CoinInstances;
+    mapping(uint => address) getPartner;
     mapping(uint=>mapping(uint=>uint)) partnerShares;
     //customer details [customersUsername, CoinIDs purchased array]
     struct customer {
@@ -143,15 +147,17 @@ contract CoinPub is Stoppable {
       publishCoin( _CoinID ,  uint8(1000), uint(1000),  uint(0) );
    }
 
-  function publishCoin(uint id, uint8 _decimalUnits,uint _initialAmount, uint _toBeShipped ) returns(address){
+  function publishCoin(uint id, uint8 _decimalUnits,uint _initialAmount, uint _toBeShipped) {
      CoinStruct memory temp=Coins[id];
 
-    Coin newCoin = new Coin(msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
-                             temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2);
-      address T=address(newCoin);
-      CoinInstances[temp.CoinID]=T;
-     TreeDeploy.call(bytes4(sha3(("deployTree(address,uint256)"))),T,temp.eligibleCount);
-     return newCoin;
+    //Coin newCoin = new Coin(msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
+      //                       temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2);
+      //address T=address(newCoin);
+      //CoinInstances[temp.CoinID]=T;
+
+     CoinDeploy.call(bytes4(sha3(("deployCoin(address,uint256,uint256,uint256,uint256,uint256,string,uint8,uint256,uint256,string,uint256,uint256,address)"))),msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
+                              temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2,TreeDeploy);
+
    }
 
    function structRet(uint n)  public returns(uint){

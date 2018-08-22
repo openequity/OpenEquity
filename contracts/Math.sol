@@ -102,91 +102,11 @@ library Math {
             return result >> (-shift);
     }
 
-    /// @dev Returns natural logarithm value of given x
-    /// @param x x
-    /// @return ln(x)
-    function ln(uint x)
-        public
-        constant
-        returns (int)
-    {
-        require(x > 0);
-        // binary search for floor(log2(x))
-        int ilog2 = floorLog2(x);
-        int z;
-        if (ilog2 < 0)
-            z = int(x << uint(-ilog2));
-        else
-            z = int(x >> uint(ilog2));
-        // z = x * 2^-⌊log₂x⌋
-        // so 1 <= z < 2
-        // and ln z = ln x - ⌊log₂x⌋/log₂e
-        // so just compute ln z using artanh series
-        // and calculate ln x from that
-        int term = (z - int(ONE)) * int(ONE) / (z + int(ONE));
-        int halflnz = term;
-        int termpow = term * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 3;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 5;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 7;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 9;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 11;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 13;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 15;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 17;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 19;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 21;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 23;
-        termpow = termpow * term / int(ONE) * term / int(ONE);
-        halflnz += termpow / 25;
-        return (ilog2 * int(ONE)) * int(ONE) / int(LOG2_E) + 2 * halflnz;
-    }
 
-    /// @dev Returns base 2 logarithm value of given x
-    /// @param x x
-    /// @return logarithmic value
-    function floorLog2(uint x)
-        public
-        constant
-        returns (int lo)
-    {
-        lo = -64;
-        int hi = 193;
-        // I use a shift here instead of / 2 because it floors instead of rounding towards 0
-        int mid = (hi + lo) >> 1;
-        while((lo + 1) < hi) {
-            if (mid < 0 && x << uint(-mid) < ONE || mid >= 0 && x >> uint(mid) < ONE)
-                hi = mid;
-            else
-                lo = mid;
-            mid = (hi + lo) >> 1;
-        }
-    }
 
-    /// @dev Returns maximum of an array
-    /// @param nums Numbers to look through
-    /// @return Maximum number
-    function max(int[] nums)
-        public
-        constant
-        returns (int max)
-    {
-        require(nums.length > 0);
-        max = -2**255;
-        for (uint i = 0; i < nums.length; i++)
-            if (nums[i] > max)
-                max = nums[i];
-    }
+
+
+
 
     /// @dev Returns whether an add operation causes an overflow
     /// @param a First addend

@@ -13,7 +13,7 @@ OrderStatisticTree Tree= new OrderStatisticTree(Owner,eligible);
 
 deployedAddresses[msg.sender]=address(Tree);
 }
-function getTreeLocation(address creator) returns(address){
+function getTreeLocation(address creator)  constant returns(address){
   return deployedAddresses[creator];
 }
 
