@@ -82,17 +82,20 @@ contract Coin is HumanStandardToken {
     _;
   }
 
+  // CODE REVIEW: Functions like this should have the "view" modifier. Or at least be labeled "constant"
   function goalReached()
     returns (bool goalMet)
   {
     return balance >= goal;
   }
 
+  // CODE REVIEW: Same as above
   function goalFailed()
     returns (bool goalFailed)
   {
     return ((balance<goal)&&(now>enddate));
   }
+  // CODE REVIEW: This should not be callable by anyone right?
   function setTreeAddress(address a) {
     StatisticsTree=a;
   }
@@ -162,6 +165,8 @@ contract Coin is HumanStandardToken {
   validPoints[value]=true;
   }
   //((Author)) withdraws the capital they earned through coin sales
+  // CODE REVIEW: I would expect this to actually still have the "isAuthor" modifier.
+  // Even tho the balance is only transferred to the author it is wierd that anyone can call this function right?
   function withdrawCapital()
     goalMet
     /*isAuthor()*/{
