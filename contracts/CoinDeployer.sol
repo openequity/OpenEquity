@@ -6,16 +6,17 @@ import "./Coin.sol";
 
 contract CoinDeployer{
 
-mapping(address=>address) deployedAddresses;
+mapping(uint=>address) deployedAddresses;
 
-
+address TreeDeploy;
+//address TreeDeploy;
+constructor(address _tree){
+TreeDeploy =_tree;
+}
 function deployCoin(
    address _authorAddress,
-   //bytes metadata,
-   uint _customershipStake,
+    uint _customershipStake,
    uint _goal,
-   uint _toBeShipped,
-   //uint _userCount,
    uint _eligibleCount,
    uint _initialAmount,
    string _tokenName,
@@ -25,19 +26,25 @@ function deployCoin(
    string _tokenSymbol,
    uint _weightCoefficient,
    uint _weightCoefficient2,
-   address TreeDeploy
+   uint id
 
    ){
-Coin C= new Coin(_authorAddress,_customershipStake,_goal,_toBeShipped,_eligibleCount,_initialAmount,_tokenName,_decimalUnits,_startdate,_enddate,_tokenSymbol,_weightCoefficient,_weightCoefficient2);
-address  T=address(C);
- TreeDeploy.call(bytes4(sha3(("deployTree(address,uint256)"))),T,_eligibleCount);
-deployedAddresses[msg.sender]=address(C);
+Coin c= new Coin(_authorAddress,_customershipStake,_goal,_eligibleCount,_initialAmount,_tokenName,_decimalUnits,_startdate,_enddate,_tokenSymbol,_weightCoefficient,_weightCoefficient2);
+
+
+ if(!TreeDeploy.call(bytes4(sha3(("deployTree(address,uint256)"))),address(c),_eligibleCount)) revert();
+deployedAddresses[id]=address(c);
+
 }
 
-function getCoinLocation(address creator) constant returns(address){
-  return deployedAddresses[creator];
+function getCoinLocation(uint coin) constant returns(address){
+  return deployedAddresses[coin];
 }
 
+function setTreeInCoin(address _coin) {
+  require(msg.sender==TreeDeploy);
+   Coin(_coin).setTreeAddress(_coin);
+}
 
 
 

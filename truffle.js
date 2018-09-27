@@ -1,15 +1,23 @@
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic="zone indicate whip pause jump involve pottery leaf flavor expect narrow parrot";
-
+var mnemonic="";
+var NonceTrackerSubprovider = require("web3-provider-engine/subproviders/nonce-tracker")
+const Web3 = require("web3");
+const web3 = new Web3();
 module.exports = {
   networks: {
-    rinkeby: {
+    main: {
 
       provider: function() {
-          
-        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/39ad63095ace4ca597faae06e0f68a3")
+        var wallet=new HDWalletProvider(mnemonic, "https://mainnet.infura.io/sD5DX2vrQvMCwK9gjV59")
+        var nonceTracker = new NonceTrackerSubprovider()
+        wallet.engine._providers.unshift(nonceTracker)
+        nonceTracker.setEngine(wallet.engine)
+        return wallet
       },
-      network_id: 3
+      gas: 5000000,
+      gasPrice: web3.toWei("5", "gwei"),
+      network_id: 1,
+
     }
   }
 };

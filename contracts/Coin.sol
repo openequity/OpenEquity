@@ -11,15 +11,16 @@ contract Coin is HumanStandardToken {
   uint customershipStake;
   uint balance;
   uint goal;
-  uint toBeShipped;
+  uint setEligible;
   uint userCount;
   uint eligibleCount;
-  uint startdate;
-  uint enddate;
+  uint public startdate;
+  uint public enddate;
   uint gasSaved;
-  address StatisticsTree;
+  address public StatisticsTree;
   uint weightCoefficient;
   uint weightCoefficient2;
+  address Deployer;
   CoinQueueLib2.CoinQueue queue;
 
   function Coin
@@ -28,7 +29,7 @@ contract Coin is HumanStandardToken {
      //bytes metadata,
      uint _customershipStake,
      uint _goal,
-     uint _toBeShipped,
+     //uint _toBeShipped,
      //uint _userCount,
      uint _eligibleCount,
      uint _initialAmount,
@@ -46,11 +47,12 @@ contract Coin is HumanStandardToken {
     goal = _goal;
   //  userCount = _userCount;
     eligibleCount = _eligibleCount;
-    toBeShipped = _toBeShipped;
-    startdate=startdate;
-    enddate=startdate + _enddate *1 days;
+    setEligible=0;
+    startdate=_startdate;
+    enddate=_enddate;
     weightCoefficient=_weightCoefficient;
     weightCoefficient2=_weightCoefficient2;
+    Deployer=msg.sender;
   }
 
   enum customerStatus { Waiting, Eligible, Requested, Shipped, Confirmed }
@@ -94,6 +96,7 @@ contract Coin is HumanStandardToken {
     return ((balance<goal)&&(now>enddate));
   }
   function setTreeAddress(address a) {
+    require(msg.sender==authorAddress);
     StatisticsTree=a;
   }
   function buyCoin()
@@ -109,14 +112,14 @@ contract Coin is HumanStandardToken {
 
       // Add the customer to the queue in the last position
     }
-    uint Time=((now-startdate)*10000)/(enddate-startdate);
+    uint Time=((now-startdate)*10000000000)/(enddate-startdate);
     int weight=-1*( 0x10000000000000000*((int(weightCoefficient)*int(Time))+int(weightCoefficient2)*int(balance/goal) ));
 
     balances[msg.sender] += msg.value;
-    uint _points=((weight.exp()*(balances[msg.sender]))/0x10000000000000000);
+    uint _points=((weight.exp()*(msg.value))/0x10000000000000000);
     customers[msg.sender].points+=_points;
     if(balance<goal){
-    queue.insertcustomer( msg.sender,_points,StatisticsTree);
+      if(!queue.insertcustomer( msg.sender,_points,StatisticsTree)) revert();
     }
     if (goalReached()) {
       if(!StatisticsTree.call(bytes4(keccak256("SetGoalReached()")))) revert();
@@ -130,7 +133,9 @@ contract Coin is HumanStandardToken {
     return true;
   }
 
-
+  function getPoints(address a) constant returns(uint){
+    return customers[a].points;
+  }
 
   function weekSaleSum(uint value){
   //  uint currentday=((now-start)/86400)%7;
@@ -149,17 +154,18 @@ contract Coin is HumanStandardToken {
     goalMet
     returns (bool success)
   {
-    require(eligibleCount <= toBeShipped);
-    eligibleCount++;
+
+    setEligible++;
     //address first = queue.getFirstInLine();
     //customers[first].status = customerStatus.Eligible;
   //  queue.remove(first, int(balances[first]));
     return true;
   }
-  function setEligible(uint value) goalMet{
+  function addEligible(uint value) goalMet{
   require(msg.sender==StatisticsTree);
-
+  require(setFirstEligible());
   validPoints[value]=true;
+
   }
   //((Author)) withdraws the capital they earned through coin sales
   function withdrawCapital()

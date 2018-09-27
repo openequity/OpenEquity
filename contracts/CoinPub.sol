@@ -27,13 +27,15 @@ pragma solidity ^0.4.15;
 contract CoinPub  {
     //using Math for *;
     uint CoinID;            //ID applied to Coin upon pub, incrementing after each new Coin
-    address TreeDeploy;
+
     address CoinDeploy;
     address owner;
-    function CoinPub(address T,address C){
+    uint DeployTime;
+    function CoinPub(address C){
         CoinID = 0;
+
         CoinDeploy=C;
-        TreeDeploy=T;
+
         owner=msg.sender;
       }
     modifier isOwner() {
@@ -47,11 +49,13 @@ contract CoinPub  {
       _;}                                          //customer exists in customer mapping
 
     mapping(address => customer) customers;
+    mapping(address=>uint[]) createdCoinIDs;
     mapping(address => Author) authors;
     mapping(uint => CoinStruct) Coins;
     //mapping(uint => address) CoinInstances;
     mapping(uint => address) getPartner;
     mapping(uint=>mapping(uint=>uint)) partnerShares;
+    mapping(address=>uint) QueuedCoin;
     //customer details [customersUsername, CoinIDs purchased array]
     struct customer {
       bytes customerUsername;      //customer's username
@@ -111,6 +115,7 @@ contract CoinPub  {
       isAuthor() {
        CoinID += 1;
 		   uint t=10;
+       QueuedCoin[msg.sender]=CoinID;
        //uint[] memory P = new uint[](10);//default 10 possible partners (possibly add option for more or less)
 		   //uint[]  P;
 		   //P[1]=12;
@@ -144,10 +149,11 @@ contract CoinPub  {
                 temp.weightCoefficient2=_weight2;
 
       //bytes data=0xa50b4f0;
-      publishCoin( _CoinID ,  uint8(1000), uint(1000),  uint(0) );
+      //publishCoin( _CoinID ,  uint8(1000), uint(1000),  uint(0) );
    }
 
-  function publishCoin(uint id, uint8 _decimalUnits,uint _initialAmount, uint _toBeShipped) {
+  function publishCoin(uint id,uint8 _decimalUnits,uint _initialAmount ) {
+
      CoinStruct memory temp=Coins[id];
 
     //Coin newCoin = new Coin(msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
@@ -155,37 +161,25 @@ contract CoinPub  {
       //address T=address(newCoin);
       //CoinInstances[temp.CoinID]=T;
 
-     CoinDeploy.call(bytes4(sha3(("deployCoin(address,uint256,uint256,uint256,uint256,uint256,string,uint8,uint256,uint256,string,uint256,uint256,address)"))),msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
-                              temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2,TreeDeploy);
+    if(!CoinDeploy.call(bytes4(sha3(("deployCoin(address,uint256,uint256,uint256,uint256,string,uint8,uint256,uint256,string,uint256,uint256,uint256)"))),msg.sender, temp.customershipStake, temp.goal,
+                            temp.eligibleCount,_initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2,QueuedCoin[msg.sender])) revert();
+
 
    }
 
-   function structRet(uint n)  public returns(uint){
-     CoinStruct memory b= Coins[n];
-     return b.customershipStake;
 
-   }
-   function nameret(uint n)  public returns(string){
-     CoinStruct memory b= Coins[n];
-     return b.tokenName;
-
-   }
-   function symbolret(uint n)  public returns(string){
-     CoinStruct memory b= Coins[n];
-     return b.tokenSymbol;
-
-   }
   // function getCoinStruct(uint n) public  returns (CoinStruct) {
     // return Coins[n];
    //}
-   function getOtherparams(uint n) returns(uint,uint,uint,uint){
+   function getStructDetails(uint n) returns(string,string,uint,uint,uint,uint,uint){
      CoinStruct memory b= Coins[n];
-     return(b.goal,b.startdate,b.enddate,b.eligibleCount);
-
+     return(b.tokenName,b.tokenSymbol,b.goal,b.startdate,b.enddate,b.eligibleCount,b.customershipStake);
  }
+
   function getPartnerShare(uint n,uint m) public  returns (uint) {
     return  partnerShares[n][m];
   }
+
   function returnallShares(uint n) public returns (uint[]){
     CoinStruct memory B=Coins[n];
     uint sz=B.numPartners;
@@ -196,4 +190,5 @@ contract CoinPub  {
   }
   return P;
 }
+
 }

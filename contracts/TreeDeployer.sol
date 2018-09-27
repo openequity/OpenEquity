@@ -7,11 +7,13 @@ import "./OrderStatisticsTree.sol";
 contract TreeDeployer{
 
 mapping(address=>address) deployedAddresses;
-
+//mapping(address=>address) coinAuthors;
 function deployTree(address Owner,uint eligible){
 OrderStatisticTree Tree= new OrderStatisticTree(Owner,eligible);
 
-deployedAddresses[msg.sender]=address(Tree);
+deployedAddresses[Owner]=address(Tree);
+address sender=msg.sender;
+//if(!Owner.call(bytes4(sha3("setTreeAddress(address)")),address(Tree) ) ) revert();
 }
 function getTreeLocation(address creator)  constant returns(address){
   return deployedAddresses[creator];

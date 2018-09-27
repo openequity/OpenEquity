@@ -69,8 +69,8 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6101f4610030600b82828239805160001a6073146000811461002057610022565bfe5b5030600052607381538281f300730000000000000000000000000000000000000000301460806040526004361061006e576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806330f7451e14610073578063988e03901461008a578063fc6dc17d146100b7575b600080fd5b81801561007f57600080fd5b506100886100fa565b005b81801561009657600080fd5b506100b56004803603810190808035906020019092919050505061015f565b005b8180156100c357600080fd5b506100f8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610162565b005b7f5da801b6e57bde18d536d5e32ef866b5fdd927d80101ed20524c269550edf1c733604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1565b50565b7f1fc44c2b44927a36b98c2262da2b66a43bf6395e97a25719577b1bbfa7f279d481604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1505600a165627a7a72305820c2770a6d508580d567ae46786ceb938c31d3366a816653c88bfc5eacd8a5ddd70029",
-  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361061006e576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806330f7451e14610073578063988e03901461008a578063fc6dc17d146100b7575b600080fd5b81801561007f57600080fd5b506100886100fa565b005b81801561009657600080fd5b506100b56004803603810190808035906020019092919050505061015f565b005b8180156100c357600080fd5b506100f8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610162565b005b7f5da801b6e57bde18d536d5e32ef866b5fdd927d80101ed20524c269550edf1c733604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1565b50565b7f1fc44c2b44927a36b98c2262da2b66a43bf6395e97a25719577b1bbfa7f279d481604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1505600a165627a7a72305820c2770a6d508580d567ae46786ceb938c31d3366a816653c88bfc5eacd8a5ddd70029",
+  "bytecode": "0x6101f4610030600b82828239805160001a6073146000811461002057610022565bfe5b5030600052607381538281f300730000000000000000000000000000000000000000301460806040526004361061006e576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806330f7451e14610073578063988e03901461008a578063fc6dc17d146100b7575b600080fd5b81801561007f57600080fd5b506100886100fa565b005b81801561009657600080fd5b506100b56004803603810190808035906020019092919050505061015f565b005b8180156100c357600080fd5b506100f8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610162565b005b7f5da801b6e57bde18d536d5e32ef866b5fdd927d80101ed20524c269550edf1c733604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1565b50565b7f1fc44c2b44927a36b98c2262da2b66a43bf6395e97a25719577b1bbfa7f279d481604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1505600a165627a7a723058206909108033a34d787568c16b85e091786482e64362b7fe7a70a8a6df8058debe0029",
+  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361061006e576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806330f7451e14610073578063988e03901461008a578063fc6dc17d146100b7575b600080fd5b81801561007f57600080fd5b506100886100fa565b005b81801561009657600080fd5b506100b56004803603810190808035906020019092919050505061015f565b005b8180156100c357600080fd5b506100f8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610162565b005b7f5da801b6e57bde18d536d5e32ef866b5fdd927d80101ed20524c269550edf1c733604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1565b50565b7f1fc44c2b44927a36b98c2262da2b66a43bf6395e97a25719577b1bbfa7f279d481604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1505600a165627a7a723058206909108033a34d787568c16b85e091786482e64362b7fe7a70a8a6df8058debe0029",
   "sourceMap": "52:890:2:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
   "deployedSourceMap": "52:890:2:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;608:213;;8:9:-1;5:2;;;30:1;27;20:12;5:2;608:213:2;;;;;;393:151;;8:9:-1;5:2;;;30:1;27;20:12;5:2;393:151:2;;;;;;;;;;;;;;;;;;;;;;;;;;824:115;;8:9:-1;5:2;;;30:1;27;20:12;5:2;824:115:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;608:213;789:25;803:10;789:25;;;;;;;;;;;;;;;;;;;;;;608:213::o;393:151::-;;:::o;824:115::-;908:24;923:8;908:24;;;;;;;;;;;;;;;;;;;;;;824:115;:::o",
   "source": "pragma solidity ^0.4.15;\n\n\nimport \"./CoinPub.sol\";\n\nlibrary CoinDistLib {\n\n  event NewQualifyingcustomers ();          //Some customers become eligible after goal is met\n  event CoinRequested(address customer);    //customer claims Coin\n  event LogCoinShipped(address customer);   //Author sends shipping confirmation\n\n  //Some customers become eligible to claim hard copy upon funding goal\n  function prepShip(uint customers){\n    //getFirstInLine(CoinQueue storage queue)\n    //Coin.customerEligibilityAndBalance.eligibleForCoin = true;\n    }\n  //customers can claim hard copy after they become eligible\n  function requestDelivery (){\n    //require(Coin.customerEligibilityAndBalance.eligibleForCoin = false = true);\n    //Coin.customerEligibilityAndBalance.eligibleForCoin = false;\n    CoinRequested(msg.sender);\n    }\n  function markShipped (address customer){\n    //How should I alert the customer?\n    LogCoinShipped(customer);\n    }\n\n}\n",
@@ -79,14 +79,14 @@
     "absolutePath": "/home/jjj/Documents/OE/OpenEquity/contracts/CoinDistLib.sol",
     "exportedSymbols": {
       "CoinDistLib": [
-        770
+        818
       ]
     },
-    "id": 771,
+    "id": 819,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 733,
+        "id": 781,
         "literals": [
           "solidity",
           "^",
@@ -99,10 +99,10 @@
       {
         "absolutePath": "/home/jjj/Documents/OE/OpenEquity/contracts/CoinPub.sol",
         "file": "./CoinPub.sol",
-        "id": 734,
+        "id": 782,
         "nodeType": "ImportDirective",
-        "scope": 771,
-        "sourceUnit": 1270,
+        "scope": 819,
+        "sourceUnit": 1279,
         "src": "27:23:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -113,9 +113,9 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 770,
+        "id": 818,
         "linearizedBaseContracts": [
-          770
+          818
         ],
         "name": "CoinDistLib",
         "nodeType": "ContractDefinition",
@@ -123,11 +123,11 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 736,
+            "id": 784,
             "name": "NewQualifyingcustomers",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 735,
+              "id": 783,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "106:2:2"
@@ -137,20 +137,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 740,
+            "id": 788,
             "name": "CoinRequested",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 739,
+              "id": 787,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 738,
+                  "id": 786,
                   "indexed": false,
                   "name": "customer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 740,
+                  "scope": 788,
                   "src": "192:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -159,7 +159,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 737,
+                    "id": 785,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "192:7:2",
@@ -179,20 +179,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 744,
+            "id": 792,
             "name": "LogCoinShipped",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 743,
+              "id": 791,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 742,
+                  "id": 790,
                   "indexed": false,
                   "name": "customer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 744,
+                  "scope": 792,
                   "src": "260:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -201,7 +201,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 741,
+                    "id": 789,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "260:7:2",
@@ -220,13 +220,13 @@
           },
           {
             "body": {
-              "id": 749,
+              "id": 797,
               "nodeType": "Block",
               "src": "426:118:2",
               "statements": []
             },
             "documentation": null,
-            "id": 750,
+            "id": 798,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -234,15 +234,15 @@
             "name": "prepShip",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 747,
+              "id": 795,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 746,
+                  "id": 794,
                   "name": "customers",
                   "nodeType": "VariableDeclaration",
-                  "scope": 750,
+                  "scope": 798,
                   "src": "411:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -251,7 +251,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 745,
+                    "id": 793,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "411:4:2",
@@ -268,12 +268,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 748,
+              "id": 796,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "426:0:2"
             },
-            "scope": 770,
+            "scope": 818,
             "src": "393:151:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -281,7 +281,7 @@
           },
           {
             "body": {
-              "id": 758,
+              "id": 806,
               "nodeType": "Block",
               "src": "635:186:2",
               "statements": [
@@ -293,18 +293,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 754,
+                          "id": 802,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2306,
+                          "referencedDeclaration": 2315,
                           "src": "803:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 755,
+                        "id": 803,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -326,18 +326,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 753,
+                      "id": 801,
                       "name": "CoinRequested",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 740,
+                      "referencedDeclaration": 788,
                       "src": "789:13:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 756,
+                    "id": 804,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -351,14 +351,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 757,
+                  "id": 805,
                   "nodeType": "ExpressionStatement",
                   "src": "789:25:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 759,
+            "id": 807,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -366,19 +366,19 @@
             "name": "requestDelivery",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 751,
+              "id": 799,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "633:2:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 752,
+              "id": 800,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "635:0:2"
             },
-            "scope": 770,
+            "scope": 818,
             "src": "608:213:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -386,7 +386,7 @@
           },
           {
             "body": {
-              "id": 768,
+              "id": 816,
               "nodeType": "Block",
               "src": "863:76:2",
               "statements": [
@@ -396,11 +396,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 765,
+                        "id": 813,
                         "name": "customer",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 761,
+                        "referencedDeclaration": 809,
                         "src": "923:8:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -415,18 +415,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 764,
+                      "id": 812,
                       "name": "LogCoinShipped",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 744,
+                      "referencedDeclaration": 792,
                       "src": "908:14:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 766,
+                    "id": 814,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -440,14 +440,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 767,
+                  "id": 815,
                   "nodeType": "ExpressionStatement",
                   "src": "908:24:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 769,
+            "id": 817,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -455,15 +455,15 @@
             "name": "markShipped",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 762,
+              "id": 810,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 761,
+                  "id": 809,
                   "name": "customer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 769,
+                  "scope": 817,
                   "src": "846:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -472,7 +472,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 760,
+                    "id": 808,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "846:7:2",
@@ -489,19 +489,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 763,
+              "id": 811,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "863:0:2"
             },
-            "scope": 770,
+            "scope": 818,
             "src": "824:115:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 771,
+        "scope": 819,
         "src": "52:890:2"
       }
     ],
@@ -511,14 +511,14 @@
     "absolutePath": "/home/jjj/Documents/OE/OpenEquity/contracts/CoinDistLib.sol",
     "exportedSymbols": {
       "CoinDistLib": [
-        770
+        818
       ]
     },
-    "id": 771,
+    "id": 819,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 733,
+        "id": 781,
         "literals": [
           "solidity",
           "^",
@@ -531,10 +531,10 @@
       {
         "absolutePath": "/home/jjj/Documents/OE/OpenEquity/contracts/CoinPub.sol",
         "file": "./CoinPub.sol",
-        "id": 734,
+        "id": 782,
         "nodeType": "ImportDirective",
-        "scope": 771,
-        "sourceUnit": 1270,
+        "scope": 819,
+        "sourceUnit": 1279,
         "src": "27:23:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -545,9 +545,9 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 770,
+        "id": 818,
         "linearizedBaseContracts": [
-          770
+          818
         ],
         "name": "CoinDistLib",
         "nodeType": "ContractDefinition",
@@ -555,11 +555,11 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 736,
+            "id": 784,
             "name": "NewQualifyingcustomers",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 735,
+              "id": 783,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "106:2:2"
@@ -569,20 +569,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 740,
+            "id": 788,
             "name": "CoinRequested",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 739,
+              "id": 787,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 738,
+                  "id": 786,
                   "indexed": false,
                   "name": "customer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 740,
+                  "scope": 788,
                   "src": "192:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -591,7 +591,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 737,
+                    "id": 785,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "192:7:2",
@@ -611,20 +611,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 744,
+            "id": 792,
             "name": "LogCoinShipped",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 743,
+              "id": 791,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 742,
+                  "id": 790,
                   "indexed": false,
                   "name": "customer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 744,
+                  "scope": 792,
                   "src": "260:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -633,7 +633,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 741,
+                    "id": 789,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "260:7:2",
@@ -652,13 +652,13 @@
           },
           {
             "body": {
-              "id": 749,
+              "id": 797,
               "nodeType": "Block",
               "src": "426:118:2",
               "statements": []
             },
             "documentation": null,
-            "id": 750,
+            "id": 798,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -666,15 +666,15 @@
             "name": "prepShip",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 747,
+              "id": 795,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 746,
+                  "id": 794,
                   "name": "customers",
                   "nodeType": "VariableDeclaration",
-                  "scope": 750,
+                  "scope": 798,
                   "src": "411:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -683,7 +683,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 745,
+                    "id": 793,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "411:4:2",
@@ -700,12 +700,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 748,
+              "id": 796,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "426:0:2"
             },
-            "scope": 770,
+            "scope": 818,
             "src": "393:151:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -713,7 +713,7 @@
           },
           {
             "body": {
-              "id": 758,
+              "id": 806,
               "nodeType": "Block",
               "src": "635:186:2",
               "statements": [
@@ -725,18 +725,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 754,
+                          "id": 802,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2306,
+                          "referencedDeclaration": 2315,
                           "src": "803:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 755,
+                        "id": 803,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -758,18 +758,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 753,
+                      "id": 801,
                       "name": "CoinRequested",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 740,
+                      "referencedDeclaration": 788,
                       "src": "789:13:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 756,
+                    "id": 804,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -783,14 +783,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 757,
+                  "id": 805,
                   "nodeType": "ExpressionStatement",
                   "src": "789:25:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 759,
+            "id": 807,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -798,19 +798,19 @@
             "name": "requestDelivery",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 751,
+              "id": 799,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "633:2:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 752,
+              "id": 800,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "635:0:2"
             },
-            "scope": 770,
+            "scope": 818,
             "src": "608:213:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -818,7 +818,7 @@
           },
           {
             "body": {
-              "id": 768,
+              "id": 816,
               "nodeType": "Block",
               "src": "863:76:2",
               "statements": [
@@ -828,11 +828,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 765,
+                        "id": 813,
                         "name": "customer",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 761,
+                        "referencedDeclaration": 809,
                         "src": "923:8:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -847,18 +847,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 764,
+                      "id": 812,
                       "name": "LogCoinShipped",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 744,
+                      "referencedDeclaration": 792,
                       "src": "908:14:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 766,
+                    "id": 814,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -872,14 +872,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 767,
+                  "id": 815,
                   "nodeType": "ExpressionStatement",
                   "src": "908:24:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 769,
+            "id": 817,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -887,15 +887,15 @@
             "name": "markShipped",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 762,
+              "id": 810,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 761,
+                  "id": 809,
                   "name": "customer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 769,
+                  "scope": 817,
                   "src": "846:16:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -904,7 +904,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 760,
+                    "id": 808,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "846:7:2",
@@ -921,19 +921,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 763,
+              "id": 811,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "863:0:2"
             },
-            "scope": 770,
+            "scope": 818,
             "src": "824:115:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 771,
+        "scope": 819,
         "src": "52:890:2"
       }
     ],
@@ -952,5 +952,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-22T13:59:30.438Z"
+  "updatedAt": "2018-09-27T18:49:52.126Z"
 }
