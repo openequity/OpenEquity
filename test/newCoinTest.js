@@ -39,7 +39,7 @@ contract('Coin', function(accounts) {
   await CoinPb.createCoinStruct(1,"MYCoin","BK","boardroom",{from:accounts[0]})
   console.log("created")
   //modifyCoinStruct(uint _CoinID,uint _goal,uint _startdate,uint _enddate,uint _eligibleCount,uint _weight, uint _weight2)
-  await CoinPb.modifyCoinStruct(1,100,time,endTime,300,1,1,{from:accounts[0]})
+  await CoinPb.modifyCoinStruct(1,100,time,endTime,300,2,2,{from:accounts[0]})
     console.log("created")
   await CoinPb.publishCoin(1,18,100000000000000,{from:accounts[0]})
 
@@ -52,6 +52,7 @@ contract('Coin', function(accounts) {
  await CoinInstance.buyCoin({from:accounts[1],value:100000000000})
  console.log(await TreeInstance.select_at(0))
  console.log(await CoinInstance.getPoints(accounts[1]))
+ console.log(await CoinInstance.goalReached())
   //console.log(await MyTree.getTreeLocation(DeployAddress))
 
 

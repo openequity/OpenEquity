@@ -83,9 +83,12 @@ contract Coin is HumanStandardToken {
     require ((startdate>now)&&(enddate<now));
     _;
   }
-
+ modifier isAuthor{
+   require(msg.sender==authorAddress);
+   _;
+ }
   function goalReached()
-    returns (bool goalMet)
+   constant  returns (bool goalMet)
   {
     return balance >= goal;
   }
@@ -170,7 +173,7 @@ contract Coin is HumanStandardToken {
   //((Author)) withdraws the capital they earned through coin sales
   function withdrawCapital()
     goalMet
-    /*isAuthor()*/{
+    isAuthor {
     authorAddress.transfer(balance);
   }
   /*function withdrawInvestment(){
