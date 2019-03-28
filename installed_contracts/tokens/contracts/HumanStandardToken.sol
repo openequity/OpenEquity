@@ -34,13 +34,17 @@ contract HumanStandardToken is StandardToken {
         uint256 _initialAmount,
         string _tokenName,
         uint8 _decimalUnits,
-        string _tokenSymbol
+        string _tokenSymbol,
+        address _owner
+        
+
         ) {
-        balances[msg.sender] = _initialAmount;               // Give the creator all initial tokens
+        balances[_owner] = _initialAmount;               // Give the creator all initial tokens
         totalSupply = _initialAmount;                        // Update total supply
         name = _tokenName;                                   // Set the name for display purposes
         decimals = _decimalUnits;                            // Amount of decimals for display purposes
-        symbol = _tokenSymbol;                               // Set the symbol for display purposes
+        symbol = _tokenSymbol;                                // Set the symbol for display purposes
+                                     
     }
 
     /* Approves and then calls the receiving contract */

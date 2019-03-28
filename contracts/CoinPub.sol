@@ -52,8 +52,10 @@ contract CoinPub  {
     mapping(address=>uint[]) createdCoinIDs;
     mapping(address => Author) authors;
     mapping(uint => CoinStruct) Coins;
+    mapping(uint=>uint[]) PartnerArray;
     //mapping(uint => address) CoinInstances;
     mapping(uint => address) getPartner;
+    mapping(uint=>bool) isPartner;
     mapping(uint=>mapping(uint=>uint)) partnerShares;
     mapping(address=>uint) QueuedCoin;
     //customer details [customersUsername, CoinIDs purchased array]
@@ -71,29 +73,40 @@ contract CoinPub  {
 
     //CoinStruct details [CoinID, authorAddress, customershipStake, customers array]
     struct CoinStruct {
-      uint CoinID;                 //Global Coin ID ++1
+                   //Global Coin ID ++1
       address authorAddress;       //Who was the author? Can be used to access Authors mapping
-      uint customershipStake;
-      //uint[] Partners;
-      uint numPartners;
-      uint goal	;
-      uint eligibleCount;
-	    uint startdate;
-	    uint enddate;
-
+      uint _CoinID;
+     
 	    string tokenName;
 	    string tokenSymbol;
 	    string governanceModel;
-      uint   weightCoefficient;
-      uint   weightCoefficient2;
+      uint[] PartnerShares;
+      uint[] NumParams;
+      address[] PartnerArray;
+         
+      
+      
+      
+      //uint goal	numParams[0];
+      //uint eligibleCount numParams[1];
+	    //uint startdate numParams[2];
+	    //uint enddate numParams[3];
+      //uint   weightCoefficient numParams[4];
+      //uint   weightCoefficient2 numParams[5];
+      // uint price numParams[6];
+      // decimal uints numParams[7]
 	  //How much equity did the author provision for customers?
       }
-    function addPartner(uint _CoinID,uint _share){
+   /* function addPartner(uint _CoinID,uint8 _share,address p){
+      require(isPartner[_CoinID]==false);
       uint i=Coins[CoinID].numPartners;
 	    partnerShares[_CoinID][i]=_share;
-
-      Coins[_CoinID].numPartners=i+1;
+      isPartner[_CoinID]=true;
+      Coins[_CoinID].Shares.push(_share);
+      PartnerArray.push(p);
+      
     }
+    */
     function becomecustomer(bytes _customerUsername) {
       //customer signs up to buy Coin coins
       customers[msg.sender] = customer({
@@ -111,7 +124,7 @@ contract CoinPub  {
 
 
 
-    function createCoinStruct (uint _customershipStake,string _tokenName,string _tokenSymbol,string _governanceModel)
+    function createCoinStruct (uint _customershipStake,string _tokenName,string _tokenSymbol,string _governanceModel,uint[] _NumParams,uint[] _PartnerShares,address[] _PartnerArray)
       isAuthor() {
        CoinID += 1;
 		   uint t=10;
@@ -122,47 +135,27 @@ contract CoinPub  {
 
 
         Coins[CoinID] = CoinStruct({
-              CoinID: CoinID,
+              
               authorAddress: msg.sender,
-              customershipStake: _customershipStake,
+              _CoinID:CoinID,
               tokenName:_tokenName,
               tokenSymbol:_tokenSymbol,
 							governanceModel:_governanceModel,
-							goal:t,
-						  startdate:t,
-	 						enddate:t,
-	 						eligibleCount:t,
-						               //	Partners:P,
-              numPartners:0,
-              weightCoefficient:1,
-              weightCoefficient2:1
+               PartnerShares: _PartnerShares,
+               NumParams:_NumParams,
+               PartnerArray: _PartnerArray
+							
             });
       }
-  function modifyCoinStruct(uint _CoinID,uint _goal,uint _startdate,uint _enddate,uint _eligibleCount,uint _weight, uint _weight2)
-	 isAuthor()   {
-	              CoinStruct storage temp=Coins[_CoinID];
-	              temp.goal=_goal;
-	              temp.startdate=_startdate;
-	              temp.enddate=_enddate;
-	              temp.eligibleCount=_eligibleCount;
-                temp.weightCoefficient=_weight;
-                temp.weightCoefficient2=_weight2;
+  
 
-      //bytes data=0xa50b4f0;
-      //publishCoin( _CoinID ,  uint8(1000), uint(1000),  uint(0) );
-   }
+  function publishCoin() {
 
-  function publishCoin(uint id,uint8 _decimalUnits,uint _initialAmount ) {
+  CoinStruct id= Coins[QueuedCoin[msg.sender]];
 
-     CoinStruct memory temp=Coins[id];
+   
 
-    //Coin newCoin = new Coin(msg.sender, temp.customershipStake, temp.goal, _toBeShipped,
-      //                       temp.eligibleCount, _initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2);
-      //address T=address(newCoin);
-      //CoinInstances[temp.CoinID]=T;
-
-    if(!CoinDeploy.call(bytes4(sha3(("deployCoin(address,uint256,uint256,uint256,uint256,string,uint8,uint256,uint256,string,uint256,uint256,uint256)"))),msg.sender, temp.customershipStake, temp.goal,
-                            temp.eligibleCount,_initialAmount, temp.tokenName,_decimalUnits,temp.startdate,temp.enddate,temp.tokenSymbol,temp.weightCoefficient,temp.weightCoefficient2,QueuedCoin[msg.sender])) revert();
+    if(!CoinDeploy.call(bytes4(sha3(("deployCoin( address,uint,string, string ,uint[],uint[],address[])"))),id.authorAddress,id._CoinID,id.tokenName,id.tokenSymbol,id.PartnerShares,id.NumParams,id.PartnerArray  )) revert();
 
 
    }
@@ -171,24 +164,24 @@ contract CoinPub  {
   // function getCoinStruct(uint n) public  returns (CoinStruct) {
     // return Coins[n];
    //}
-   function getStructDetails(uint n) returns(string,string,uint,uint,uint,uint,uint){
+  /* function getStructDetails(uint n) returns(string,string,uint,uint,uint,uint,uint){
      CoinStruct memory b= Coins[n];
-     return(b.tokenName,b.tokenSymbol,b.goal,b.startdate,b.enddate,b.eligibleCount,b.customershipStake);
+     return();
  }
+ */
 
   function getPartnerShare(uint n,uint m) public  returns (uint) {
     return  partnerShares[n][m];
   }
 
-  function returnallShares(uint n) public returns (uint[]){
-    CoinStruct memory B=Coins[n];
-    uint sz=B.numPartners;
-    uint[] memory P = new uint[](sz);
-    for(uint i=0;i<sz;i++){
-    P[i]=getPartnerShare(n,i);
+ 
+  function getQueuedCoin() constant returns(uint){
+    
+    return  QueuedCoin[msg.sender];
 
   }
-  return P;
-}
+  function getCoins(address a) constant returns(uint[]){
+    return createdCoinIDs[a];
+  }
 
 }

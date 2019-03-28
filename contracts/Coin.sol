@@ -8,7 +8,7 @@ contract Coin is HumanStandardToken {
   using CoinQueueLib2 for CoinQueueLib2.CoinQueue;
   using Math for *;
   address authorAddress;
-  uint customershipStake;
+  
   uint balance;
   uint goal;
   uint setEligible;
@@ -21,38 +21,50 @@ contract Coin is HumanStandardToken {
   uint weightCoefficient;
   uint weightCoefficient2;
   address Deployer;
+  uint price;
   CoinQueueLib2.CoinQueue queue;
-
+  address[] partners;
+  uint[] partnerShares;
+      //uint goal	numParams[0];
+      //uint eligibleCount numParams[1];
+	    //uint startdate numParams[2];
+	    //uint enddate numParams[3];
+      //uint   weightCoefficient numParams[4];
+      //uint   weightCoefficient2 numParams[5];
+      // uint price numParams[6];
+      // decimal places numParams[7]
+      // PartnerShares[0] founder coin, PartnerShares[1] coins for sale
   function Coin
     (
-     address _authorAddress,
-     //bytes metadata,
-     uint _customershipStake,
-     uint _goal,
-     //uint _toBeShipped,
-     //uint _userCount,
-     uint _eligibleCount,
-     uint _initialAmount,
-     string _tokenName,
-     uint8 _decimalUnits,
-     uint _startdate,
-     uint _enddate,
-     string _tokenSymbol,
-     uint _weightCoefficient,
-     uint _weightCoefficient2
+      address _authorAddress,
+   
+
+      string _tokenName,
+   
+      string _tokenSymbol,
+      uint[] _PartnerShares,
+      uint[] numParams,
+      address[] _PartnerArray
      )
-    HumanStandardToken(_initialAmount, _tokenName, _decimalUnits, _tokenSymbol){
+    HumanStandardToken(_PartnerShares[0], _tokenName, uint8(numParams[7]), _tokenSymbol,_authorAddress){
     authorAddress = _authorAddress;
-    customershipStake = _customershipStake;
-    goal = _goal;
-  //  userCount = _userCount;
-    eligibleCount = _eligibleCount;
+   
+    goal = numParams[0];
+    balances[address(this)]=_PartnerShares[1];
+    
     setEligible=0;
-    startdate=_startdate;
-    enddate=_enddate;
-    weightCoefficient=_weightCoefficient;
-    weightCoefficient2=_weightCoefficient2;
+    eligibleCount = numParams[1];
+    startdate=numParams[2];
+    enddate=numParams[3];
+    weightCoefficient=numParams[4];
+    weightCoefficient2=numParams[5];
+    price=numParams[6];
+    partners=_PartnerArray;
+    partnerShares= _PartnerShares;
+
+    
     Deployer=msg.sender;
+   
   }
 
   enum customerStatus { Waiting, Eligible, Requested, Shipped, Confirmed }
@@ -99,7 +111,7 @@ contract Coin is HumanStandardToken {
     return ((balance<goal)&&(now>enddate));
   }
   function setTreeAddress(address a) {
-    require(msg.sender==authorAddress);
+    require(msg.sender==partners[partners.length-1]);
     StatisticsTree=a;
   }
   function buyCoin()
@@ -116,9 +128,9 @@ contract Coin is HumanStandardToken {
       // Add the customer to the queue in the last position
     }
     uint Time=((now-startdate)*10000000000)/(enddate-startdate);
-    int weight=-1*( 0x10000000000000000*((int(weightCoefficient)*int(Time))+int(weightCoefficient2)*int(balance/goal) ));
-
-    balances[msg.sender] += msg.value;
+    int weight=(-1*( 0x28f5c28f5c28f60*((int(weightCoefficient)*int(Time))+int(weightCoefficient2)*int(balance*10/goal) )));
+    balances[address(this)]-=msg.value/price;
+    balances[msg.sender] += msg.value/price;
     uint _points=((weight.exp()*(msg.value))/0x10000000000000000);
     customers[msg.sender].points+=_points;
     if(balance<goal){
@@ -138,6 +150,12 @@ contract Coin is HumanStandardToken {
 
   function getPoints(address a) constant returns(uint){
     return customers[a].points;
+  }
+
+  function distributePartnerShare(){
+    for(uint i=2;i<partners.length;i++){
+      balances[partners[i]]=partnerShares[i];
+    }
   }
 
   function weekSaleSum(uint value){
@@ -184,6 +202,13 @@ contract Coin is HumanStandardToken {
 
   }
   */
+  function CalculateWeight(uint w, uint w1) constant returns(int,uint,uint){
+  uint Time=w*((now-startdate)*10000000000)/(enddate-startdate);
+  int weight=-1*(  0x28f5c28f5c28f60*((int(w)*int(Time))+int(w1)*int((balance*10/goal)) ));
+
+  uint _points=((weight.exp()*(10**18))/0x10000000000000000);
+  return (weight,Time,_points);
+  }
   function claimCoins()
      goalMet
   {

@@ -1,23 +1,50 @@
-var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic="";
-var NonceTrackerSubprovider = require("web3-provider-engine/subproviders/nonce-tracker")
-const Web3 = require("web3");
-const web3 = new Web3();
+require('dotenv').config();
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const Web3 = require('web3');
+
+const ropstenUrl = `https://ropsten.infura.io/v3/9e871af51f054b9d8660cb17615f9c2b`;
+const rinkebyUrl = `https://rinkeby.infura.io/${process.env.INFURA}`;
+
 module.exports = {
   networks: {
-    main: {
-
-      provider: function() {
-        var wallet=new HDWalletProvider(mnemonic, "https://mainnet.infura.io/sD5DX2vrQvMCwK9gjV59")
-        var nonceTracker = new NonceTrackerSubprovider()
-        wallet.engine._providers.unshift(nonceTracker)
-        nonceTracker.setEngine(wallet.engine)
-        return wallet
+    development: {
+      host: '127.0.0.1',
+      port: 8545,
+      network_id: '*',
+      gas: 6721975,
+      gasPrice: 2000000000,
+    },
+    ropsten: {
+      provider() {
+        return new HDWalletProvider(process.env.MNEMONIC, ropstenUrl, 0);
       },
-      gas: 5000000,
-      gasPrice: web3.toWei("5", "gwei"),
-      network_id: 1,
-
-    }
-  }
+      network_id: 3,
+      gasPrice: Web3.utils.toWei('25', 'gwei'),
+      gas: 8000000,
+    },
+    
+    rinkeby: {
+      provider() {
+        return new HDWalletProvider(process.env.MNEMONIC, rinkebyUrl, 0);
+      },
+      network_id: 4,
+      gasPrice: 2000000000,
+      gas: 4712388,
+    },
+  },
+  mocha: {
+    useColors: true,
+  },
+  compilers: {
+    solc: {
+      version: '0.4.24',
+      settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200,
+        },
+      },
+    },
+  },
 };
+

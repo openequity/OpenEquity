@@ -1,0 +1,38 @@
+.Input {
+    width: 50%;
+    
+    padding: 10px;
+    box-sizing: border-box;
+    
+}
+
+.Label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.InputElement {
+    outline: none;
+    border: 1px solid black;
+    
+    background-color: white;
+    font: inherit;
+    padding: 6px 10px;
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    position: center
+}
+
+.InputElement:focus {
+    outline: none;
+    background-color:  #ccc;
+}
+
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
