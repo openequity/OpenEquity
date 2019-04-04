@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import CoinContract from '../../../build/contracts/Coin.json'
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from '@material-ui/core/Button';
@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
+import { Switch, Route, Redirect } from "react-router-dom";
 // core components
 // import Button from "../../components/CustomButtons/Button";
 import Input from "../input/Input"
@@ -136,7 +136,10 @@ p2s:'',
 p3s:'',
 p4s:'',
 p5s:'',
-event:''
+event:'',
+web3:'',
+created:false,
+newContract:''
 }
 }
 
@@ -144,9 +147,9 @@ event:''
 
 componentWillMount () {
   console.log(this.props)
-  console.log(this.context)
+  console.log(this.context.drizzle.web3)
   console.log(this.context.drizzle.contracts.CoinDeployer.events)
-  this.setState({events:this.context.drizzle.contracts.CoinDeployer.events.CoinCreation})
+  this.setState({events:this.context.drizzle.contracts.CoinDeployer.events.CoinCreation,web3:this.context.drizzle.web3})
 }
 
 
@@ -262,7 +265,22 @@ handleSubmit2= async()=>{
       });
       
       console.log(stackId)
-      console.log(await this.state.contracts.CoinDeployer.methods.getCoinLocation(1).call())
+     let newaddress=stackId.events.CoinCreation.returnValues.C
+     console.log(newaddress)
+     console.log(this.state.web3)
+                    
+    if(newaddress!=='0x0000000000000000000000000000000000000000'){ 
+     var contractConfig = {
+      contractName: newaddress,
+      web3Contract: new this.state.web3.eth.Contract(CoinContract.abi,newaddress)
+    }
+    let events=['Transfer']
+    console.log(contractConfig)
+    console.log(this.context.drizzle)
+    this.context.drizzle.addContract(contractConfig, events)
+     this.setState({created:true,newContract:newaddress})
+   
+    } 
     //uint goal	numParams[0];
       //uint eligibleCount numParams[1];
 	    //uint startdate numParams[2];
@@ -278,6 +296,12 @@ handleSubmit2= async()=>{
  }
 
 render () {
+  let parametersForm=null
+  let  tokenPartnersForm=null
+  let CreatedMessage=null
+  
+   
+  
     const formElementsArray = [];
     for (let key in this.state.orderForm) {
       formElementsArray.push({
@@ -285,7 +309,7 @@ render () {
           config: this.state.orderForm[key]
       });
     }
-    const parametersForm =
+     parametersForm =
       <React.Fragment>
         <Typography variant="display1" gutterBottom>
           Token Parameters
@@ -302,7 +326,7 @@ render () {
             ))}
         </form>
       </React.Fragment>
-    const tokenPartnersForm =
+     tokenPartnersForm =
         <div>
             <Typography variant="display1" gutterBottom>
               Token Partners
@@ -330,11 +354,20 @@ render () {
            <br></br>
             </form>
         </div>;
+ 
+  if(this.state.created === true){
+    CreatedMessage=(<div> <h1>Your new Coin has been created. Its address is {this.state.newContract} </h1>
+    </div>)
+  }
     return (
+      
+
       <Card>
         <CardContent>
           <Grid container spacing={0}>
+          {CreatedMessage}
             <Grid item xs={0} sm={6} style={{background:'white'}} >
+              
               {parametersForm}
             </Grid>
             <Grid item xs={6} sm={6}>

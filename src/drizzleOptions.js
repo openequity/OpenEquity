@@ -1,5 +1,5 @@
 
-import Coin from '../build/contracts/Coin.json'
+//import Coin from '../build/contracts/Coin.json'
 import CoinDeployer from '../build/contracts/CoinDeployer.json'
 const drizzleOptions = {
   web3: {
@@ -9,7 +9,7 @@ const drizzleOptions = {
       url: 'ws://127.0.0.1:9545'
     }
   },
-  contracts: [CoinDeployer,Coin],
+  contracts: [CoinDeployer],
   events: {
     CoinDeployer: ['CoinCreation'],
   },
