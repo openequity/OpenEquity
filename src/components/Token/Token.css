@@ -1,0 +1,23 @@
+/*
+ * Token css File
+*/
+
+.Token, .Token > * {
+    margin: 10px;
+    margin-top: 3ch;
+    
+    /* '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+      marginBottom: '3ch'
+    }, */
+    /* propertys here */
+}
+/* root: {
+    marginTop: '3ch',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+      marginBottom: '3ch'
+    },
+  }, */

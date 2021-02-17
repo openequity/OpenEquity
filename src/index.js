@@ -8,12 +8,16 @@ import blue from '@material-ui/core/colors/blue';
 import green from '@material-ui/core/colors/green';
 
 // Layouts
-import { LoadingContainer } from 'drizzle-react-components'
+import { LoadingContainer, AccountData } from 'drizzle-react-components'
 
 import { history, store } from './store'
 import drizzleOptions from './drizzleOptions'
-import indexRoutes from "./routes/index.jsx";
+// import indexRoutes from "./routes/index.jsx";
 
+import Header from './components/Header'
+import DeployToken from './views/DeployToken'
+import DeployCrowdsale from './views/DeployCrowdsale'
+import BuyTokens from './views/BuyTokens'
 //store.dispatch(setTiles());
 
 
@@ -24,20 +28,22 @@ const theme = createMuiTheme({
   },
 });
 
-ReactDOM.render((
+ReactDOM.render(
+  <React.Fragment>
     <DrizzleProvider options={drizzleOptions} store={store}>
       <LoadingContainer>
         <MuiThemeProvider theme={theme}>
-          <Router history={history}>
+          <Router  history={history}>
+            <Header />
             <Switch>
-              {indexRoutes.map((prop, key) => {
-                return <Route path={prop.path} component={prop.component} key={key} />;
-              })}
+              <Route path="/DeployToken"  component={DeployToken} />
+              <Route path="/DeployCrowdsale"  component={DeployCrowdsale} />
+              <Route path="/BuyTokens"  component={BuyTokens} />
             </Switch>
           </Router>
         </MuiThemeProvider>
       </LoadingContainer>
     </DrizzleProvider>
-  ),
+  </React.Fragment>,
   document.getElementById('root')
 );
